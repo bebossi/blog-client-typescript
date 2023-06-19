@@ -1,38 +1,48 @@
+import { useContext } from "react";
+import { Link } from "react-router-dom";
+import { AuthContext } from "./authContextComponents";
 
-function NavBar() {
+function Navbar() {
+  const { loggedInUser, setLoggedInUser } = useContext(AuthContext);
+
+  const handleLogout = () => {
+  
+    document.cookie = "Bearer=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    setLoggedInUser(null);
+  };
+
   return (
-    <nav className="bg-gray-800">
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div className="flex items-center justify-between h-16">
-        <div className="flex-shrink-0">
-          <span className="text-white text-lg font-bold">Logo</span>
-        </div>
-        <div className="hidden md:block">
-          <div className="ml-10 flex items-baseline space-x-4">
-            <a
-              href="/"
-              className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-            >
-              Home
-            </a>
-            <a
-              href="/signup"
-              className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-            >
-              Sign Up
-            </a>
-            <a
-              href="/login"
-              className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-            >
-              Login
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </nav>
-  )
+    <nav className="flex justify-between items-center py-4 bg-gray-900 text-white">
+      <Link to="/" className="text-xl font-bold">Logo</Link>
+      <ul className="flex space-x-4">
+        {!loggedInUser && (
+          <>
+            <li>
+              <Link to="/signup" className="text-white hover:text-gray-300">Sign Up</Link>
+            </li>
+            <li>
+              <Link to="/login" className="text-white hover:text-gray-300">Login</Link>
+            </li>
+          </>
+        )}
+        {loggedInUser && (
+          <>
+            <li>
+              <Link to="/profile" className="text-white hover:text-gray-300">Profile</Link>
+            </li>
+            <li>
+              <button
+                className="text-white hover:text-gray-300"
+                onClick={handleLogout}
+              >
+                Logout
+              </button>
+            </li>
+          </>
+        )}
+      </ul>
+    </nav>
+  );
 }
 
-export default NavBar
+export default Navbar;

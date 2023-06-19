@@ -1,24 +1,25 @@
-import {useEffect, useState, useContext} from "react"
+import {useEffect, useState} from "react"
+import { User } from "../interfaces"
 import { api } from "../api"
-import { Post, User } from "../interfaces"
 import { useParams } from "react-router-dom"
 
-function CurrentUserProfile() {
 
+function UserProfile() {
+    const params = useParams();
     const [user, setUser] = useState<User>()
 
     useEffect(() => {
-        async function fetchPosts() {
-            const response = await api.get("/profilePost")
-
+        async function fetchUser(){
+            const response = await api.get(`/userProfile/${params.userId}`)
             setUser(response.data)
         }
-        fetchPosts()
+        fetchUser()
     }, [])
+
+
 
   return (
     <div>
-       
     <div className="container mx-auto p-4">
       <h1 className="text-3xl font-bold mb-2">User: {user?.userName}</h1>
       <h2 className="text-xl mb-4">Email: {user?.email}</h2>
@@ -35,9 +36,8 @@ function CurrentUserProfile() {
         </div>
       ))}
     </div>
-  
     </div>
   )
 }
 
-export default CurrentUserProfile
+export default UserProfile

@@ -20,14 +20,6 @@ api.interceptors.request.use((config) => {
     };
   }
 
-  // const parseLoggedInUser = JSON.parse(loggedInUserJSON || '""');
-
-  // if (parseLoggedInUser.token) {
-  //   (config as AxiosRequestConfig).headers = {
-  //     ...(config.headers as AxiosHeaders),
-  //     Authorization: `Bearer ${parseLoggedInUser.token}`,
-  //   };
-  // }
   return config;
 });
 

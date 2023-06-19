@@ -6,6 +6,8 @@ import LoginScreen from "./Pages/LoginScreen"
 import SignUpScreen from "./Pages/SignUpScreen"
 import CurrentUserProfile from "./Pages/CurrentUserProfile"
 import { AuthContextComponent } from "./Components/authContextComponents"
+import UserProfile from "./Pages/UserProfile"
+
 
 function App() {
 
@@ -15,11 +17,12 @@ function App() {
     <div className="flex flex-col min-h-screen">
     <NavBar />
     <div className="flex-grow">
-      <Routes>
+      <Routes> 
     <Route path="/" element={<HomeScreen />} />
     <Route path="/signup" element={<SignUpScreen />} />
     <Route path="/login" element={<LoginScreen />} />
     <Route path="/profile" element={<CurrentUserProfile/>} />
+    <Route path="/userProfile/:userId" element={<UserProfile/>} />
     </Routes>
     </div>
     <Footer />

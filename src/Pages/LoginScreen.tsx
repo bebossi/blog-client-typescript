@@ -13,21 +13,11 @@ function LoginScreen() {
         try{
         e.preventDefault();
 
-        // const response = await fetch("http://localhost:5555/user/login", {
-        //     method: "POST",
-        //     headers: {"Content-Type": "application/json"},
-           
-        //     body: JSON.stringify({
-        //         email,
-        //         password
-        //     })
-            
-        // })
         const response = await api.post("/user/login", {email, password})
         if(response){
             const data =  response.data;
             const token = data.token;
-            document.cookie = `Bearer=${JSON.stringify(token)}; path=/;`;
+            document.cookie = `Bearer=${token}; path=/;`;
         }
         navigate("/")
   } catch(err) {
