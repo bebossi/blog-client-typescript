@@ -1,4 +1,4 @@
-import axios, { AxiosRequestConfig, AxiosHeaders } from "axios";
+import axios, { AxiosRequestConfig } from "axios";
 
 const apiURLs = {
   development: "http://localhost:5555",
@@ -7,17 +7,27 @@ const apiURLs = {
 const api = axios.create({ baseURL: apiURLs["development"] });
 
 api.interceptors.request.use((config) => {
-  const loggedInUserJSON = localStorage.getItem("loggedInUser");
+  // const loggedInUserJSON = localStorage.getItem("loggedInUser");
+  const token = document.cookie
+    .split("; ")
+    .find((row) => row.startsWith("Bearer="))
+    ?.split("=")[1];
 
-  const parseLoggedInUser = JSON.parse(loggedInUserJSON || '""');
-
-  if (parseLoggedInUser.token) {
+  if (token) {
     (config as AxiosRequestConfig).headers = {
-      ...(config.headers as AxiosHeaders),
-      Authorization: `Bearer ${parseLoggedInUser.token}`,
+      ...config.headers,
+      Authorization: `Bearer ${token}`,
     };
   }
 
+  // const parseLoggedInUser = JSON.parse(loggedInUserJSON || '""');
+
+  // if (parseLoggedInUser.token) {
+  //   (config as AxiosRequestConfig).headers = {
+  //     ...(config.headers as AxiosHeaders),
+  //     Authorization: `Bearer ${parseLoggedInUser.token}`,
+  //   };
+  // }
   return config;
 });
 

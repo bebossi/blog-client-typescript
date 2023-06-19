@@ -4,6 +4,7 @@ import {  Route, Routes } from "react-router-dom"
 import HomeScreen from "./Pages/HomeScreen"
 import LoginScreen from "./Pages/LoginScreen"
 import SignUpScreen from "./Pages/SignUpScreen"
+import CurrentUserProfile from "./Pages/CurrentUserProfile"
 
 function App() {
 
@@ -15,6 +16,7 @@ function App() {
     <Route path="/" element={<HomeScreen />} />
     <Route path="/signup" element={<SignUpScreen />} />
     <Route path="/login" element={<LoginScreen />} />
+    <Route path="/profile" element={<CurrentUserProfile/>} />
     </Routes>
     </div>
     <Footer />
