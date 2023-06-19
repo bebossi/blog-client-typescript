@@ -1,7 +1,7 @@
 import { api } from "../api"
 import {  useEffect, useState } from "react";
 import PostBox from "../Components/PostBox";
-import {User, Post, Comment} from "../interfaces"
+import { Post} from "../interfaces"
 
 function HomeScreen() {
     const [posts, setPosts] = useState<Post[]>([])

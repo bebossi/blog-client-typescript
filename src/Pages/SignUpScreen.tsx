@@ -13,15 +13,7 @@ function SignUpScreen() {
 
         await api.post("/user/signup", {userName, password, email})
         
-        // await fetch("http://localhost:5555/user/signup", {
-        //     method: "POST",
-        //     headers: {"Content-Type": "application/json"},
-        //     body: JSON.stringify({
-        //         userName,
-        //         email, 
-        //         password
-        //     })
-        // })
+      
 
         navigate("/login")
 

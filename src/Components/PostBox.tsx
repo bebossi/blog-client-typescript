@@ -1,5 +1,7 @@
 import React from "react";
-import {User, Post, Comment} from "../interfaces"
+import { Post} from "../interfaces"
+import {  Link } from "react-router-dom";
+import CreateComment from "../Pages/CreateComment";
 
 interface PostProps {
   post: Post;
@@ -7,9 +9,8 @@ interface PostProps {
 
 const PostBox: React.FC<PostProps> = ({ post }) => {
   return (
-    
     <div className="bg-gray-200 p-4 rounded-lg mb-4"> 
-      <p className="text-gray-600 mb-2">User: {post.userId.userName}</p>
+      <Link to={`/userProfile/${post.userId.id}`} className="text-gray-600 mb-2">User: {post.userId.userName}</Link>
       <h3 className="text-xl font-semibold mb-2">{post.content}</h3>
       <div className="mb-2">
         <h4 className="font-semibold mb-1">Comments:</h4>
@@ -19,6 +20,7 @@ const PostBox: React.FC<PostProps> = ({ post }) => {
           </p>
         ))}
       </div>
+      <CreateComment postId={post.id} />
     </div>
   );
 };

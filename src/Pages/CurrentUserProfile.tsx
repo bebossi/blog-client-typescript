@@ -1,7 +1,6 @@
-import {useEffect, useState, useContext} from "react"
+import {useEffect, useState} from "react"
 import { api } from "../api"
-import { Post, User } from "../interfaces"
-import { useParams } from "react-router-dom"
+import {  User } from "../interfaces"
 
 function CurrentUserProfile() {
 

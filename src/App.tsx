@@ -7,6 +7,8 @@ import SignUpScreen from "./Pages/SignUpScreen"
 import CurrentUserProfile from "./Pages/CurrentUserProfile"
 import { AuthContextComponent } from "./Components/authContextComponents"
 import UserProfile from "./Pages/UserProfile"
+import CreatePost from "./Pages/CreatePost"
+import PostPage from "./Pages/PostPage"
 
 
 function App() {
@@ -23,6 +25,8 @@ function App() {
     <Route path="/login" element={<LoginScreen />} />
     <Route path="/profile" element={<CurrentUserProfile/>} />
     <Route path="/userProfile/:userId" element={<UserProfile/>} />
+    <Route path="/createPost" element={<CreatePost/>} />
+    <Route path="/post/:postId" element={<PostPage/>} />
     </Routes>
     </div>
     <Footer />
