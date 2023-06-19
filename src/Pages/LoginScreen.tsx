@@ -27,7 +27,7 @@ function LoginScreen() {
         if(response){
             const data =  response.data;
             const token = data.token;
-            document.cookie = `Bearer=${token}`;
+            document.cookie = `Bearer=${JSON.stringify(token)}; path=/;`;
         }
         navigate("/")
   } catch(err) {

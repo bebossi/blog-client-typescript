@@ -11,7 +11,6 @@ function CurrentUserProfile() {
             const response = await api.get("/profilePost")
 
             setUser(response.data)
-            console.log(response.data)
         }
         fetchPosts()
     }, [])
@@ -29,7 +28,7 @@ function CurrentUserProfile() {
 
           <h5 className="text-lg font-semibold mt-4 mb-2">Comments:</h5>
           {post.comments.map((comment) => (
-            <p key={comment.id}>{comment.comment}</p>
+            <p key={comment.id}> {comment.userId.userName}:{comment.comment}</p>
           ))}
         </div>
       ))}

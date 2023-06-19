@@ -5,10 +5,13 @@ import HomeScreen from "./Pages/HomeScreen"
 import LoginScreen from "./Pages/LoginScreen"
 import SignUpScreen from "./Pages/SignUpScreen"
 import CurrentUserProfile from "./Pages/CurrentUserProfile"
+import { AuthContextComponent } from "./Components/authContextComponents"
 
 function App() {
 
   return (
+    <>
+    <AuthContextComponent>
     <div className="flex flex-col min-h-screen">
     <NavBar />
     <div className="flex-grow">
@@ -21,6 +24,8 @@ function App() {
     </div>
     <Footer />
   </div>
+  </AuthContextComponent>
+  </>
   )
 }
 
