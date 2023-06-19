@@ -8,7 +8,7 @@ import CurrentUserProfile from "./Pages/CurrentUserProfile"
 import { AuthContextComponent } from "./Components/authContextComponents"
 import UserProfile from "./Pages/UserProfile"
 import CreatePost from "./Pages/CreatePost"
-import PostPage from "./Pages/PostPage"
+import UpdateUser from "./Pages/UpdateUser"
 
 
 function App() {
@@ -26,7 +26,7 @@ function App() {
     <Route path="/profile" element={<CurrentUserProfile/>} />
     <Route path="/userProfile/:userId" element={<UserProfile/>} />
     <Route path="/createPost" element={<CreatePost/>} />
-    <Route path="/post/:postId" element={<PostPage/>} />
+    <Route path="/updateUser" element={<UpdateUser/>} />
     </Routes>
     </div>
     <Footer />
