@@ -5,6 +5,8 @@ import { Post} from "../interfaces"
 
 function HomeScreen() {
     const [posts, setPosts] = useState<Post[]>([])
+    const [isLoading, setIsLoading] = useState(true);
+
 
     useEffect(() => {
         async function fetchPosts(){
@@ -12,9 +14,15 @@ function HomeScreen() {
             
 
             setPosts([...response.data])
+            setIsLoading(false);
+
         }
         fetchPosts()    
     }, [])  
+
+    if (isLoading) {
+        return <div>Loading...</div>;
+      }
   
   return (
  <div> 

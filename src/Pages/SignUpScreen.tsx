@@ -7,18 +7,19 @@ function SignUpScreen() {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [ userName, setUserName] = useState("")
+    const [isLoading, setIsLoading] = useState(true);
+
 
     const submitHandler = async (e: SyntheticEvent) => {
         e.preventDefault();
-
         await api.post("/user/signup", {userName, password, email})
-        
-      
-
+        setIsLoading(false);             
         navigate("/login")
-
         console.log("submitted")
+    }
 
+    if (isLoading) {
+      return <div>Loading...</div>;
     }
 
 

@@ -9,6 +9,8 @@ import { AuthContextComponent } from "./Components/authContextComponents"
 import UserProfile from "./Pages/UserProfile"
 import CreatePost from "./Pages/CreatePost"
 import UpdateUser from "./Pages/UpdateUser"
+import FollowersCurrentUser from "./Pages/FollowersCurrentUser"
+import FollowingsCurrentUser from "./Pages/FollowingsCurrentUser"
 
 
 function App() {
@@ -27,6 +29,8 @@ function App() {
     <Route path="/userProfile/:userId" element={<UserProfile/>} />
     <Route path="/createPost" element={<CreatePost/>} />
     <Route path="/updateUser" element={<UpdateUser/>} />
+    <Route path="/followers" element={<FollowersCurrentUser/>} />
+    <Route path="/followings" element={<FollowingsCurrentUser/>}/>
     </Routes>
     </div>
     <Footer />

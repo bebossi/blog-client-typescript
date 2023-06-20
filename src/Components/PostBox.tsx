@@ -16,7 +16,7 @@ const PostBox: React.FC<PostProps> = ({ post }) => {
         <h4 className="font-semibold mb-1">Comments:</h4>
         {post.comments.map((comment, index) => (
           <p key={index} className="text-gray-600">
-            {comment.userId.userName}: {comment.comment}
+          <Link to={`/userProfile/${comment.userId.id}`}> {comment.userId.userName}</Link> : {comment.comment}
           </p>
         ))}
       </div>

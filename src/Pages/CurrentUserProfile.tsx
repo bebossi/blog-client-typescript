@@ -8,6 +8,7 @@ function CurrentUserProfile() {
     const [user, setUser] = useState<User>()
     const [followingsCount, setFollowingsCount] = useState(0);
     const [followers, setFollowers] = useState(0)
+    const [isLoading, setIsLoading] = useState(true);
 
 
     useEffect(() => {
@@ -17,9 +18,16 @@ function CurrentUserProfile() {
             setUser(response.data)
             setFollowingsCount(response.data.followings.length)
             setFollowers(response.data.followers.length)
+            setIsLoading(false);
+            console.log(response.data)
           }
         fetchPosts()
     }, [])
+
+    if (isLoading) {
+      return <div>Loading...</div>;
+    }
+
 
   return (
     

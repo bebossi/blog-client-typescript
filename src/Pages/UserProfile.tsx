@@ -10,6 +10,8 @@ function UserProfile() {
     const [followingsCount, setFollowingsCount] = useState(0);
     const [followersCount, setFollowersCount] = useState(0)
     const [isFollowing, setIsFollowing] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
+
 
     useEffect(() => {
         async function fetchUser(){
@@ -18,7 +20,8 @@ function UserProfile() {
             setFollowingsCount(userInfo.data.userProfile.followings.length)
             setFollowersCount(userInfo.data.userProfile.followers.length) 
             setIsFollowing(userInfo.data.isFollowing)
-            console.log(userInfo.data.isFollowing)
+            setIsLoading(false);
+            console.log(userInfo.data)
           }
 
         fetchUser()
@@ -36,6 +39,10 @@ function UserProfile() {
         setIsFollowing(false)
     }
     const followButtonLabel = isFollowing ? 'Unfollow' : 'Follow';
+
+    if (isLoading) {
+      return <div>Loading...</div>;
+    }
 
 
   return (

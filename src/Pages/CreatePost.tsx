@@ -13,12 +13,15 @@ function CreatePost() {
     
         try {
            await api.post("/post", { content, imageUrl });
-         
+
            navigate("/")
         } catch (error) {
           console.error("Error creating post:", error);
         }
       };
+
+    
+
   return (
     <div>
        <form onSubmit={handleSubmit} className="container mx-auto p-4">
