@@ -18,7 +18,7 @@ function LoginScreen() {
             const data =  response.data;
             const token = data.token;
             document.cookie = `Bearer=${token}; path=/;`;
-        }
+        } 
         navigate("/")
   } catch(err) {
         console.log(err)

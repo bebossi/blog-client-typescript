@@ -5,17 +5,15 @@ const AuthContext = createContext<any>(null);
 
 function AuthContextComponent(props: any) {
   const [loggedInUser, setLoggedInUser] = useState<string | null>(null);
-    
 
   useEffect(() => {
-    const storedUser = document.cookie
+    const storedToken = document.cookie
     .split("; ")
     .find((row) => row.startsWith("Bearer="))
     ?.split("=")[1];
 
-   
-    if (storedUser) {  
-      setLoggedInUser(storedUser);
+    if (storedToken) {  
+      setLoggedInUser(storedToken);
     } else {
       setLoggedInUser(null);
     }
