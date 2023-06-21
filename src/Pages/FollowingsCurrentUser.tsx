@@ -9,7 +9,6 @@ function FollowingsCurrentUser() {
 
 
     const [followings, setFollowings] = useState<User[]>([])
-    const [isFollowing, setIsFollowing] = useState(false)
 
 
     useEffect(() => {
@@ -22,12 +21,10 @@ function FollowingsCurrentUser() {
 
     async function followUser(){
       await api.post(`/followUser/${params.userId}`)
-      setIsFollowing(true)
     }
 
     async function unfollowUser(){
       await api.delete(`/unfollowUser/${params.userId}`)
-      setIsFollowing(false)
     }
 
 

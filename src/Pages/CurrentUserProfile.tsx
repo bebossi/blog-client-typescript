@@ -19,7 +19,6 @@ function CurrentUserProfile() {
             setFollowingsCount(response.data.followings.length) 
             setFollowers(response.data.followers.length)
             setIsLoading(false);
-            console.log(response.data)
           }
         fetchPosts()
     }, [])
