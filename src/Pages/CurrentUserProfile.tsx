@@ -16,7 +16,7 @@ function CurrentUserProfile() {
             const response = await api.get("/profilePost")
 
             setUser(response.data)
-            setFollowingsCount(response.data.followings.length)
+            setFollowingsCount(response.data.followings.length) 
             setFollowers(response.data.followers.length)
             setIsLoading(false);
             console.log(response.data)
@@ -34,8 +34,8 @@ function CurrentUserProfile() {
       <div className="container mx-auto p-4">
         <div className="flex justify-between items-center mb-4">
           <h1 className="text-3xl font-bold">User: {user?.userName}</h1>
-          <h2 className="text-xl mb-2">Following: {followers}</h2>
-          <h2 className="text-xl mb-2">Followers: {followingsCount}</h2>
+          <Link to={`/followings`}><h2 className="text-xl mb-2">Following: {followers}</h2></Link>
+         <Link to={`/followers`}><h2 className="text-xl mb-2">Followers: {followingsCount}</h2></Link> 
 
           <div>
             <Link to="/createPost" className="btn btn-blue mr-10">

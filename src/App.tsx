@@ -11,6 +11,7 @@ import CreatePost from "./Pages/CreatePost"
 import UpdateUser from "./Pages/UpdateUser"
 import FollowersCurrentUser from "./Pages/FollowersCurrentUser"
 import FollowingsCurrentUser from "./Pages/FollowingsCurrentUser"
+import { UserContextProvider } from "./Components/loggedUserContext"
 
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
   return (
     <>
     <AuthContextComponent>
+      <UserContextProvider>
     <div className="flex flex-col min-h-screen">
     <NavBar />
     <div className="flex-grow">
@@ -35,6 +37,7 @@ function App() {
     </div>
     <Footer />
   </div>
+  </UserContextProvider>
   </AuthContextComponent>
   </>
   )

@@ -6,6 +6,7 @@ function FollowingsCurrentUser() {
 
     const [followings, setFollowings] = useState<User[]>([])
 
+
     useEffect(() => {
         async function fetchFollowers(){
             const followers = await api.get("/followings")

@@ -1,23 +1,24 @@
 import { createContext, useState, useEffect } from "react";
 
-
 const AuthContext = createContext<any>(null);
 
 function AuthContextComponent(props: any) {
-  const [loggedInUser, setLoggedInUser] = useState<string | null>(null);
+  const [loggedInUser, setLoggedInUser] = useState<string | null >(null);
+
 
   useEffect(() => {
-    const storedToken = document.cookie
+    const storedToken = document.cookie 
     .split("; ")
     .find((row) => row.startsWith("Bearer="))
     ?.split("=")[1];
-
+    
     if (storedToken) {  
       setLoggedInUser(storedToken);
     } else {
-      setLoggedInUser(null);
+      setLoggedInUser(null); 
     }
 
+ 
   }, []);
 
   return (
