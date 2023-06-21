@@ -12,6 +12,8 @@ import UpdateUser from "./Pages/UpdateUser"
 import FollowersCurrentUser from "./Pages/FollowersCurrentUser"
 import FollowingsCurrentUser from "./Pages/FollowingsCurrentUser"
 import { UserContextProvider } from "./Components/loggedUserContext"
+import FollowingsUser from "./Pages/FollowingsUser"
+import FollowersUser from "./Pages/FollowersUser"
 
 
 function App() {
@@ -33,6 +35,8 @@ function App() {
     <Route path="/updateUser" element={<UpdateUser/>} />
     <Route path="/followers" element={<FollowersCurrentUser/>} />
     <Route path="/followings" element={<FollowingsCurrentUser/>}/>
+    <Route path="/followings/:userId" element={<FollowingsUser/>} />
+    <Route path="/followers/:userId" element={<FollowersUser/>} />
     </Routes>
     </div>
     <Footer />

@@ -57,7 +57,7 @@ async function handleDeleteComment(commentId: number){
           {comment.userId.id === user?.id && (
             <>
               <button
-                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-0.25 px-1 rounded"
                 onClick={() => {
                   setShowForm(true);
                   setSelectedCommentId(comment.id);
@@ -66,7 +66,7 @@ async function handleDeleteComment(commentId: number){
                 Update
               </button>
               <button
-                className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                className="bg-red-500 hover:bg-red-700 text-white font-bold py-0.25 px-1 rounded"
                 onClick={() => handleDeleteComment(comment.id)}
               >
                 Delete

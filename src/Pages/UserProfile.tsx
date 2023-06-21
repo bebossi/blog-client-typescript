@@ -2,6 +2,7 @@ import {useEffect, useState} from "react"
 import { User } from "../interfaces"
 import { api } from "../api"
 import { useParams } from "react-router-dom"
+import { Link } from "react-router-dom";
 
 
 function UserProfile() {
@@ -21,21 +22,18 @@ function UserProfile() {
             setFollowersCount(userInfo.data.userProfile.followers.length) 
             setIsFollowing(userInfo.data.isFollowing)
             setIsLoading(false);
-            console.log(userInfo.data)
           }
 
         fetchUser()
     }, [])
 
    async function followingUser(){
-     const follow =  await api.post(`/followUser/${params.userId}`)
-     console.log(follow.data.existingFollow)
+       await api.post(`/followUser/${params.userId}`)
       setIsFollowing(true)
     }
 
     async function unfollowUser(){
-     const unfollow = await api.delete(`/unfollowUser/${params.userId}`)
-     console.log(unfollow.data)
+      await api.delete(`/unfollowUser/${params.userId}`)
         setIsFollowing(false)
     }
     const followButtonLabel = isFollowing ? 'Unfollow' : 'Follow';
@@ -49,8 +47,8 @@ function UserProfile() {
     <div className="container mx-auto p-4">
     <div className="flex justify-between items-center mb-4">
       <h1 className="text-3xl font-bold">User: {user?.userName}</h1>
-      <h2 className="text-xl mb-2">Following: {followersCount}</h2>
-      <h2 className="text-xl mb-2">Followers: {followingsCount}</h2>
+    <Link to={`/followings/${user?.id}`} > <h2 className="text-xl mb-2">Following: {followersCount}</h2></Link> 
+    <Link to={`/followers/${user?.id}`} > <h2 className="text-xl mb-2">Followers: {followingsCount}</h2></Link>
  
     </div>
    
