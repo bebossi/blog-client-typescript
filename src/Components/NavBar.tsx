@@ -12,7 +12,7 @@ function Navbar() {
   };
 
   return (
-    <nav className="flex justify-between items-center py-4 bg-gray-900 text-white">
+    <nav className="flex justify-between items-center py-4 bg-gray-950 text-white">
       <Link to="/" className="text-xl font-bold">Logo</Link>
       <ul className="flex space-x-4">
         {!loggedInUser && (

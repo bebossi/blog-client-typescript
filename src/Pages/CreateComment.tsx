@@ -30,14 +30,14 @@ function CreateComment( { postId }: { postId: number } ) {
     <div>
       <button
         onClick={handleToggleForm}
-        className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
+        className="bg-slate-700 hover:bg-slate-950 text-white font-bold py-1 px-2 rounded-3xl"
       >
-        {showForm ? "Cancel" : "Create Comment"}
+        {showForm ? "Cancel" : "Comment"}
       </button>
 
       {showForm && (
         <form onSubmit={handleSubmit} className="container mx-auto p-4">
-          <h2 className="text-2xl font-bold mb-2">Create Comment</h2>
+          <h2 className="text-2xl font-bold mb-2">Comment</h2>
           <textarea
             value={comment}
             onChange={(e) => setComment(e.target.value)}
@@ -47,7 +47,7 @@ function CreateComment( { postId }: { postId: number } ) {
           />
           <button
             type="submit"
-            className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
+            className="bg-slate-700 hover:bg-slate-950 text-white font-bold py-2 px-4 rounded"
           >
             Create
           </button>

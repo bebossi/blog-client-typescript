@@ -44,7 +44,7 @@ function UserProfile() {
 
 
   return (
-    <div className="container mx-auto p-4">
+    <div className="container mx-auto p-4 ">
     <div className="flex justify-between items-center mb-4">
       <h1 className="text-3xl font-bold">User: {user?.userName}</h1>
     <Link to={`/followings/${user?.id}`} > <h2 className="text-xl mb-2">Following: {followersCount}</h2></Link> 
@@ -59,9 +59,9 @@ function UserProfile() {
   >
     {followButtonLabel}
   </button>
-    <h3 className="text-2xl font-bold mb-2">Posts:</h3>
+    <h3 className="text-2xl font-bold mb-2 ">Posts:</h3>
     {user?.posts.map((post) => (
-      <div key={post.id} className="bg-gray-200 p-4 rounded-lg mb-4">
+      <div key={post.id} className="bg-gray-200 p-4 rounded-lg mb-4 text-slate-950">
         <p>{post.content}</p>
 
         <h5 className="text-lg font-semibold mt-4 mb-2">Comments:</h5>

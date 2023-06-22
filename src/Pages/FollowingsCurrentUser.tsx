@@ -30,20 +30,20 @@ function FollowingsCurrentUser() {
       <p className="text-lg font-bold mb-4">Followings</p>
       <div className="grid gap-4">
         {followings.map((following) => (
-          <div key={following.id} className="p-4 bg-gray-200 rounded shadow">
+          <div key={following.id} className="p-4 bg-gray-200 rounded shadow text-slate-950 flex items-center justify-between">
             <p className="text-lg font-bold mb-2">
               Username: {following.userName}
             </p>
             {isFollowing === true ? (
               <button
-                className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded"
+                className="bg-red-950 hover:bg-red-900 text-white font-bold py-2 px-4 rounded"
                 onClick={() => unfollowUser(following.id)}
               >
                 Unfollow
               </button>
             ) : (
               <button
-                className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded"
+                className="bg-sky-950 hover:bg-sky-900 text-white font-bold py-2 px-4 rounded"
                 onClick={() => followUser(following.id)}
               >
                 Follow

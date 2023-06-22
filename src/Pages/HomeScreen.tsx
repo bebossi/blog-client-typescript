@@ -26,6 +26,7 @@ function HomeScreen() {
   
   return (
  <div> 
+    <h1 className="text-4xl text-center text-slate-50" >Feed</h1>
     {posts.map((post) => (
         <PostBox key={post.id} post={post} />
     ))}

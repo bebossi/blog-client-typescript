@@ -1,4 +1,4 @@
-import { useState, SyntheticEvent } from "react";
+import { useState, SyntheticEvent, ChangeEvent  } from "react";
 import { api } from "../api";
 import { useNavigate } from "react-router-dom"
 
@@ -6,20 +6,46 @@ import { useNavigate } from "react-router-dom"
 function CreatePost() {
     const navigate = useNavigate()
     const [content, setContent] = useState("");
-    const [imageUrl, setImageUrl] = useState("")
+    const [imageUrl, setImageUrl] = useState<File | null>(null)
 
-    const handleSubmit = async (e: SyntheticEvent) => {
-        e.preventDefault();
-    
-        try {
-           await api.post("/post", { content, imageUrl });
+    function handleImage(e: ChangeEvent<HTMLInputElement>) {
+      const file = e.target.files && e.target.files[0]; 
+  
+      if (file) {
+        setImageUrl(file);
+      }
+    }
 
-           navigate("/")
-        } catch (error) {
-          console.error("Error creating post:", error);
+    async function handleUpload() {
+      try {
+        if (imageUrl) {
+          const uploadData = new FormData();
+          uploadData.append("image", imageUrl);
+  
+          const response = await api.post("/uploadImage", uploadData);
+          console.log(response.data)
+  
+          return response.data;
         }
-      };
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    const handleSubmit = async (e: SyntheticEvent) => {
+      e.preventDefault();
+  
+      try {
+        const uploadResponse = await handleUpload();
+    const uploadedImageUrl = uploadResponse.path; 
 
+    await api.post("/post", { content, imageUrl: uploadedImageUrl });
+
+    navigate("/");
+      } catch (error) {
+        console.error("Error creating post:", error);
+      }
+    };
+     
     
 
   return (
@@ -34,8 +60,8 @@ function CreatePost() {
         rows={4}
       />
         <input
-        value={imageUrl}
-        onChange={(e) => setImageUrl(e.target.value)}
+        type="file"
+        onChange={handleImage}
         placeholder="Enter image url"
         className="block w-full p-2 border border-gray-300 mb-4"
       />
@@ -51,3 +77,4 @@ function CreatePost() {
 }
 
 export default CreatePost
+

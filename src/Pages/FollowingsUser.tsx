@@ -37,20 +37,20 @@ function FollowingsUser() {
       {followings.map((following) => (
         <div
           key={following.id}
-          className="bg-gray-200 rounded shadow p-4 mb-4 flex items-center justify-between"
+          className="bg-gray-200 rounded shadow p-4 mb-4 flex items-center justify-between text-slate-950"
         >
           <p className="text-lg font-bold">Username: {following.userName}</p>
           {isSameFollowings.includes(following.id) ? (
             <button
               onClick={() => unfollowUser(following.id)}
-              className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-6 rounded"
+              className="bg-red-950 hover:bg-red-900 text-white font-bold py-2 px-6 rounded"
             >
               Unfollow
             </button>
           ) : (
             <button
               onClick={() => followUser(following.id)}
-              className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-8 rounded"
+              className="bg-sky-950 hover:bg-sky-900 text-white font-bold py-2 px-8 rounded"
             >
               Follow
             </button>

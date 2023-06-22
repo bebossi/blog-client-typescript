@@ -16,6 +16,9 @@ const PostBox: React.FC<PostProps> = ({ post }) => {
   const [comment, setComment] = useState("")
   const [showForm, setShowForm] = useState(false);
   const [selectedCommentId, setSelectedCommentId] = useState<number | null>(null);
+  const [expandedCommentId, setExpandedCommentId] = useState<number | null>(
+    null
+  );
 
 
 
@@ -39,9 +42,12 @@ async function handleDeleteComment(commentId: number){
   }
  }
 
+ const toggleExpandComment = (commentId: number) => {
+  setExpandedCommentId((prevId) => (prevId === commentId ? null : commentId));
+};
 
   return (
-    <div className="bg-gray-200 p-4 rounded-lg mb-4">
+    <div className="bg-gray-200 text-slate-950 p-4 rounded-lg m-6 ">
     <Link to={`/userProfile/${post.userId.id}`} className="text-gray-600 mb-2">
       User: {post.userId.userName}
     </Link>
@@ -55,26 +61,43 @@ async function handleDeleteComment(commentId: number){
           </Link>
           <span>{comment.comment}</span>
           {comment.userId.id === user?.id && (
+            
             <>
-              <button
-                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-0.25 px-1 rounded"
-                onClick={() => {
-                  setShowForm(true);
-                  setSelectedCommentId(comment.id);
-                }}
-              >
-                Update
-              </button>
-              <button
-                className="bg-red-500 hover:bg-red-700 text-white font-bold py-0.25 px-1 rounded"
-                onClick={() => handleDeleteComment(comment.id)}
-              >
-                Delete
-              </button>
+               <button
+                  className="text-gray-950  text-l font-extrabold hover:shadow-black"
+                  onClick={() => toggleExpandComment(comment.id)}
+                >
+                  ...
+                </button>
+              {expandedCommentId === comment.id ? (
+                <>
+                  <button
+                    className="bg-sky-950 hover:bg-sky-900 text-white font-bold py-0.25 px-2 rounded-xl"
+                    onClick={() => {
+                      setShowForm(true);
+                      setSelectedCommentId(comment.id);
+                    }}
+                  >
+                    Update
+                  </button>
+                  <button
+                    className="bg-red-950 hover:bg-red-900 text-white font-bold py-0.25 px-2 rounded-xl"
+                    onClick={() => handleDeleteComment(comment.id)}
+                  >
+                    Delete
+                  </button>
+                </>
+              ) : (
+                null
+              )}
+           
             </>
+            
           )}
         </div>
+        
       ))}
+      
       {showForm && selectedCommentId !== null && (
         <form className="flex items-center space-x-2">
           <input
