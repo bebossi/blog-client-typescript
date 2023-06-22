@@ -1,34 +1,69 @@
-import {useEffect, useState} from "react"
-import { api } from "../api"
-import { User } from "../interfaces"
-import { useParams } from "react-router-dom"
+import { useEffect, useState } from "react";
+import { api } from "../api";
+import { User } from "../interfaces";
+import { useParams } from "react-router-dom";
 
 function FollowersUser() {
-    const params = useParams()
-    const [followers, setFollowers] = useState<User[]>([])
+  const params = useParams();
+  const [followers, setFollowers] = useState<User[]>([]);
+  const [isFollowingHisFollowers, setIsFollowingHisFollowers] = useState<
+    number[]
+  >([]);
 
+  useEffect(() => {
+    async function fetchFollowers() {
+      const response = await api.get(`/followers/${params.userId}`);
+      const { followers, followHisFollowers } = response.data;
+      setFollowers(followers);
+      setIsFollowingHisFollowers(
+        followHisFollowers.map(
+          (followHisFollower: { id: any }) => followHisFollower.id
+        )
+      );
+    }
+    fetchFollowers();
+  }, []);
 
-    useEffect(() => {
-        async function fetchFollowers(){
-            const followers = await api.get(`/followers/${params.userId}`)
-            setFollowers(followers.data)
-            console.log(followers.data)
-        }
-        fetchFollowers()
-    }, [])
+  async function followUser(userId: number) {
+    await api.post(`/followUser/${userId}`);
+    setIsFollowingHisFollowers([...isFollowingHisFollowers, userId]);
+  }
+
+  async function unfollowUser(userId: number) {
+    await api.delete(`/followUser/${userId}`);
+    setIsFollowingHisFollowers(
+      isFollowingHisFollowers.filter((id) => id !== userId)
+    );
+  }
+
   return (
-    <div className="p-4 ">
-    <p className="text-lg font-bold mb-4">Followers</p>
-    <div className="grid gap-4 ">
-      {followers.map((follower) => (
-        <div key={follower.id} className="p-4 bg-gray-200 rounded shadow">
-          <p className="text-lg font-bold mb-2">Username: {follower.userName}</p>
-          {/* <button>{following ? "Unfollow" : "Follow"}</button> */}
-        </div>
-      ))}
-    </div>
+    <div className="p-4">
+    <p className="text-lg font-bold mb-4">Followings</p>
+    {followers.map((follower) => (
+      <div
+        key={follower.id}
+        className="bg-gray-200 rounded shadow p-4 mb-4 flex items-center justify-between"
+      >
+        <p className="text-lg font-bold">Username: {follower.userName}</p>
+        {isFollowingHisFollowers.includes(follower.id) ? (
+          <button
+            onClick={() => unfollowUser(follower.id)}
+            className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-6 rounded"
+          >
+            Unfollow
+          </button>
+        ) : (
+          <button
+            onClick={() => followUser(follower.id)}
+            className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-8 rounded"
+          >
+            Follow
+          </button>
+        )}
+      </div>
+    ))}
   </div>
-  )
+  );
 }
 
-export default FollowersUser
+export default FollowersUser;

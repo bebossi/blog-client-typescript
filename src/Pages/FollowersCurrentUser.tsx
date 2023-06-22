@@ -2,13 +2,11 @@
 // import { api } from "../api"
 // import { User } from "../interfaces"
 
-
 // function FollowersCurrentUser() {
 
 //     const [followers, setFollowers] = useState<User[]>([])
 //     const [ isFollowing, setIsFollowing] = useState(null)
 //     const [followedUserIds, setFollowedUserIds] = useState<number[]>([]);
-
 
 //     useEffect(() => {
 //         async function fetchFollowers(){
@@ -27,8 +25,6 @@
 //     async function unfollowUser(userId: number){
 //       await api.delete(`/unfollowUser/${userId}`)
 // }
-    
-
 
 //   return (
 //     <div className="p-4 ">
@@ -63,7 +59,9 @@ function FollowersCurrentUser() {
       const { followers, isFollowFollower } = response.data;
 
       setFollowers(followers);
-      setFollowedUserIds(isFollowFollower.map((follower: { id: any; }) => follower.id));
+      setFollowedUserIds(
+        isFollowFollower.map((follower: { id: any }) => follower.id)
+      );
     }
 
     fetchFollowers();
@@ -83,30 +81,35 @@ function FollowersCurrentUser() {
 
   return (
     <div className="p-4">
-    <p className="text-lg font-bold mb-4">Followers</p>
-    <div className="grid gap-4">
-      {followers.map((follower) => (
-        <div key={follower.id} className="flex space-x-96 bg-gray-200 rounded shadow p-4">
-          <p className="text-lg font-bold mr-2">Username: {follower.userName}</p>
-          {followedUserIds.includes(follower.id) ? (
-            <button
-              onClick={() => unfollowUser(follower.id)}
-              className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded"
-            >
-              Unfollow
-            </button>
-          ) : (
-            <button
-              onClick={() => followUser(follower.id)}
-              className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded"
-            >
-              Follow
-            </button>
-          )}
-        </div>
-      ))}
+      <p className="text-lg font-bold mb-4">Followers</p>
+      <div className="grid gap-4">
+        {followers.map((follower) => (
+          <div
+            key={follower.id}
+            className="flex space-x-96 bg-gray-200 rounded shadow p-4"
+          >
+            <p className="text-lg font-bold mr-2">
+              Username: {follower.userName}
+            </p>
+            {followedUserIds.includes(follower.id) ? (
+              <button
+                onClick={() => unfollowUser(follower.id)}
+                className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded"
+              >
+                Unfollow
+              </button>
+            ) : (
+              <button
+                onClick={() => followUser(follower.id)}
+                className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded"
+              >
+                Follow
+              </button>
+            )}
+          </div>
+        ))}
+      </div>
     </div>
-  </div>
   );
 }
 
