@@ -20,30 +20,32 @@ function App() {
 
   return (
     <>
-    <AuthContextComponent>
-      <UserContextProvider>
-    <div className="flex flex-col min-h-screen bg-slate-700 text-slate-200">
-    <NavBar />
-    <div className="flex-grow">
-      <Routes> 
-    <Route path="/" element={<HomeScreen />} />
-    <Route path="/signup" element={<SignUpScreen />} />
-    <Route path="/login" element={<LoginScreen />} />
-    <Route path="/profile" element={<CurrentUserProfile/>} />
-    <Route path="/userProfile/:userId" element={<UserProfile/>} />
-    <Route path="/createPost" element={<CreatePost/>} />
-    <Route path="/updateUser" element={<UpdateUser/>} />
-    <Route path="/followers" element={<FollowersCurrentUser/>} />
-    <Route path="/followings" element={<FollowingsCurrentUser/>}/>
-    <Route path="/followings/:userId" element={<FollowingsUser/>} />
-    <Route path="/followers/:userId" element={<FollowersUser/>} />
-    </Routes>
-    </div>
-    <Footer />
-  </div>
-  </UserContextProvider>
-  </AuthContextComponent>
-  </>
+      <AuthContextComponent>
+        <UserContextProvider>
+          <div className="flex bg-slate-700 text-slate-200 ">
+            <div>
+              <NavBar />
+            </div>
+            <div className="flex-grow overflow-y-auto ml-48 mr-48">
+              <Routes>
+                <Route path="/" element={<HomeScreen />} />
+                <Route path="/signup" element={<SignUpScreen />} />
+                <Route path="/login" element={<LoginScreen />} />
+                <Route path="/profile" element={<CurrentUserProfile />} />
+                <Route path="/userProfile/:userId" element={<UserProfile />} />
+                <Route path="/createPost" element={<CreatePost />} />
+                <Route path="/updateUser" element={<UpdateUser />} />
+                <Route path="/followers" element={<FollowersCurrentUser />} />
+                <Route path="/followings" element={<FollowingsCurrentUser />} />
+                <Route path="/followings/:userId" element={<FollowingsUser />} />
+                <Route path="/followers/:userId" element={<FollowersUser />} />
+              </Routes>
+              <Footer />
+            </div>
+          </div>
+        </UserContextProvider>
+      </AuthContextComponent>
+    </>
   )
 }
 

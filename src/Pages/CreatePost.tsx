@@ -2,7 +2,6 @@ import { useState, SyntheticEvent, ChangeEvent  } from "react";
 import { api } from "../api";
 import { useNavigate } from "react-router-dom"
 
-
 function CreatePost() {
     const navigate = useNavigate()
     const [content, setContent] = useState("");
@@ -23,7 +22,6 @@ function CreatePost() {
           uploadData.append("image", imageUrl);
   
           const response = await api.post("/uploadImage", uploadData);
-          console.log(response.data)
   
           return response.data;
         }
@@ -49,7 +47,7 @@ function CreatePost() {
     
 
   return (
-    <div>
+    <div className="h-screen" >
        <form onSubmit={handleSubmit} className="container mx-auto p-4">
       <h2 className="text-2xl font-bold mb-2">Create Post</h2>
       <textarea
