@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "./authContextComponents";
+import SearchBar from "./searchBar";
 
 function Navbar() {
   const { loggedInUser, setLoggedInUser } = useContext(AuthContext);
@@ -27,12 +28,14 @@ function Navbar() {
       )}
       {loggedInUser && (
         <>
+
           <li>
             <Link to="/profile" className="text-white hover:text-gray-300">Profile</Link>
           </li>
           <li>
             <Link to="/createPost">Create Post</Link>
           </li>
+          <SearchBar/>
           <li>
             <button
               className="text-white hover:text-gray-300"
