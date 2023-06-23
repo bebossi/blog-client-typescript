@@ -33,12 +33,16 @@ function CreatePost() {
       e.preventDefault();
   
       try {
-        const uploadResponse = await handleUpload();
-    const uploadedImageUrl = uploadResponse.path; 
-
-    await api.post("/post", { content, imageUrl: uploadedImageUrl });
-
-    navigate("/");
+        let uploadedImageUrl = ""; // Initialize the uploadedImageUrl variable
+  
+        if (imageUrl) {
+          const uploadResponse = await handleUpload();
+          uploadedImageUrl = uploadResponse.path;
+        }
+  
+        await api.post("/post", { content, imageUrl: uploadedImageUrl });
+  
+        navigate("/");
       } catch (error) {
         console.error("Error creating post:", error);
       }
@@ -48,8 +52,8 @@ function CreatePost() {
 
   return (
     <div className="h-screen" >
-       <form onSubmit={handleSubmit} className="container mx-auto p-4">
-      <h2 className="text-2xl font-bold mb-2">Create Post</h2>
+      <h2 className="text-2xl font-bold mb-2 p-4">Create Post</h2>
+       <form onSubmit={handleSubmit} className="container mx-auto p-4 text-black">
       <textarea
         value={content}
         onChange={(e) => setContent(e.target.value)}

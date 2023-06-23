@@ -58,6 +58,7 @@ const PostBox: React.FC<PostProps> = ({ post }) => {
 
   const toggleExpandComment = (commentId: number) => {
     setExpandedCommentId((prevId) => (prevId === commentId ? null : commentId));
+    setShowForm(false)
   };
 
   const toggleDeleteButton = () => {
@@ -67,13 +68,15 @@ const PostBox: React.FC<PostProps> = ({ post }) => {
 
   return (
     <div className="bg-gray-200 text-slate-950 p-4 rounded-lg m-6 ">
-      <div className="flex justify-between">
+      <div className="flex justify-between items-center">
         <Link
           to={`/userProfile/${post.userId.id}`}
-          className="text-gray-600 mb-2"
+          className="text-gray-600 mb-2 flex items-center"
         >
-          User: {post.userId.userName}
+         {<img className="h-10 w-10 rounded-full" src={post.userId.imageUrl}/>} 
+         <p className="ml-2">{post.userId.userName}</p>
         </Link>
+       
         {user?.id === post.userId.id && (
           <button
             className="text-gray-950  text-l font-extrabold hover:shadow-black"
@@ -145,7 +148,6 @@ const PostBox: React.FC<PostProps> = ({ post }) => {
             )}
           </div>
         ))}
-
         {showForm && selectedCommentId !== null && (
           <form className="flex items-center space-x-2">
             <input

@@ -1,4 +1,4 @@
-import { useState, SyntheticEvent, useEffect } from 'react';
+import { useState, SyntheticEvent, useEffect, ChangeEvent } from 'react';
 import { api } from "../api"
 import { useNavigate } from "react-router-dom"
 
@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom"
 const UpdateUser = () => {
   const navigate = useNavigate()
   const [user, setUser] = useState({userName: "", email: "", password: ""})
+  const [imageUrl, setImageUrl] = useState<File | string | null>(null)
 
   useEffect(() => {
     async function fetchUser(){
@@ -16,17 +17,44 @@ const UpdateUser = () => {
     }
     fetchUser()
   }, [])
+
+  function handleImage(e: ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files && e.target.files[0]; 
+
+    if (file) {
+      setImageUrl(file);
+    }
+  }
+  async function handleUpload() {
+    try {
+      if (imageUrl) {
+        const uploadData = new FormData();
+        uploadData.append("image", imageUrl);
+
+        const response = await api.post("/uploadImage", uploadData);
+
+        return response.data;
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+
   
   function handleChange(e: React.ChangeEvent<HTMLInputElement>){
     setUser({...user, [e.target.name]: e.target.value})
   }
 
+
   async function handleSubmit(e: SyntheticEvent){
     try{
       e.preventDefault()  
+      const uploadResponse = await handleUpload();
+      const uploadedImageUrl = uploadResponse.path; 
 
       await api.put("/updateUser", {
-        ...user
+        ...user, imageUrl: uploadedImageUrl
       })
       navigate("/")
 
@@ -37,7 +65,7 @@ const UpdateUser = () => {
 
 
   return (
-    <div className="container mx-auto p-4">
+    <div className="container mx-auto p-4 h-screen">
       <h1 className="text-2xl font-bold mb-4">Update User Information</h1>
 
       <form onSubmit={handleSubmit} className="max-w-sm">
@@ -52,7 +80,7 @@ const UpdateUser = () => {
             value={user.userName}
             onChange={handleChange}
             required
-            className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
+            className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500 text-slate-950"
           />
         </div>
 
@@ -67,7 +95,21 @@ const UpdateUser = () => {
             value={user.email}
             onChange={handleChange}
             required
-            className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
+            className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500 text-slate-950"
+          />
+        </div>
+
+        <div className="mb-4">
+          <label htmlFor="imageUrl" className="block font-bold mb-2">
+            Image:
+          </label>
+          <input
+            type="file"
+            id="imageUrl"
+            name="imageUrl"
+            onChange={handleImage}
+            required
+            className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500 text-slate-950"
           />
         </div>
 
@@ -77,12 +119,12 @@ const UpdateUser = () => {
           </label>
           <input
             type="password"
-            id="password"
+            id="formPassword"
             name="password"
             value={user.password}
             onChange={handleChange}
             required
-            className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
+            className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none  text-slate-950"
           />
         </div>
 
