@@ -113,11 +113,11 @@ const PostBox: React.FC<PostProps> = ({ post }) => {
             key={index}
             className="text-gray-600 flex items-center space-x-2"
           >
-            <Link to={`/userProfile/${comment.userId.id}`}>
-              {comment.userId.userName}
+            <Link to={`/userProfile/${comment.userId?.id}`}>
+              {comment.userId?.userName}
             </Link>
             <span>{comment.comment}</span>
-            {comment.userId.id === user?.id && (
+            {comment.userId?.id === user?.id && (
               <>
                 <button
                   className="text-gray-950  text-l font-extrabold hover:shadow-black"

@@ -23,7 +23,7 @@ function App() {
     <>
       <AuthContextComponent>
         <UserContextProvider>
-          <div className="flex bg-slate-700 text-slate-200 ">
+          <div className="flex bg-slate-700 text-slate-200 min-h-screen">
             <div>
               <NavBar />
             </div>

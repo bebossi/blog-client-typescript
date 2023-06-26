@@ -1,39 +1,33 @@
-import {User, Post } from '../interfaces';
-import { useLocation } from 'react-router-dom';
-
-
+import { User, Post } from "../interfaces";
+import { useLocation } from "react-router-dom";
+import PostBox from "../Components/PostBox";
 
 function SearchBarContent() {
-
-    const location = useLocation();
+  const location = useLocation();
   const searchResults = location.state?.searchResults;
 
   if (!searchResults) {
-    // Handle case when searchResults is undefined
     return <div>No search results found.</div>;
   }
   return (
-    <div className='h-screen'>
-           <div>
-       <h2> Users</h2>
-       {searchResults.users.map((user: User) => (
-          <div key={user.id}>
-            <p>Username: {user.userName}</p>
-            <p>Email: {user.email}</p>
+    <div className="">
+      <div >
+        <h2 className="m-3"> Users</h2>
+        {searchResults.users.map((user: User) => (
+          <div className="flex gap-3 items-center m-4" key={user.id}>
+            {<img className="h-12 w-12 rounded-full" src={user.imageUrl} />}
+            <p>{user.userName}</p>
           </div>
         ))}
-         <h2>Posts:</h2>
-      {searchResults.posts.map((post: Post) => (
-        <div key={post.id}>
-          <p>{post.content}</p>
-          <img src={post.imageUrl} alt="Post Image" />
         </div>
-      ))}
-       </div>
-      
-      
+        <div>
+        <h2 className="m-3">Posts</h2>
+        {searchResults.posts.map((post: Post) => (
+          <PostBox key={post.id} post={post} />
+        ))}
+      </div>
     </div>
-  )
+  );
 }
 
-export default SearchBarContent
+export default SearchBarContent;
