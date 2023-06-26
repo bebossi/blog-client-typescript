@@ -33,7 +33,7 @@ function CreatePost() {
       e.preventDefault();
   
       try {
-        let uploadedImageUrl = ""; // Initialize the uploadedImageUrl variable
+        let uploadedImageUrl = ""; 
   
         if (imageUrl) {
           const uploadResponse = await handleUpload();

@@ -11,7 +11,6 @@ function SearchBar() {
       try {
         const response = await api.get(`/search?query=${encodeURIComponent(searchQuery)}`);
         const data = response.data;
-        console.log(data);
         navigate('/search-results', { state: { searchResults: data } });
       } catch (err) {
         console.log(err);
@@ -23,13 +22,13 @@ function SearchBar() {
   };
 
   return (
-    <div>
+    <div className="mt-4 ml-2 mr-2">
       <input
         type="text"
         value={searchQuery}
         onChange={handleChange}
         placeholder="Search..."
-        className="text-slate-950"
+        className="text-slate-950 rounded-2xl mr-2 p-1"
       />
       <button onClick={handleSearch}>Search</button>
     </div>

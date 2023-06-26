@@ -15,6 +15,7 @@ import { UserContextProvider } from "./Components/loggedUserContext"
 import FollowingsUser from "./Pages/FollowingsUser"
 import FollowersUser from "./Pages/FollowersUser"
 import SearchBarContent from "./Pages/SearchBarContent"
+import SearchBar from "./Components/searchBar"
 
 
 function App() {
@@ -27,7 +28,7 @@ function App() {
             <div>
               <NavBar />
             </div>
-            <div className="flex-grow overflow-y-auto ml-48 mr-48">
+            <div className="flex-grow overflow-y-auto ml-48 ">
               <Routes>
                 <Route path="/" element={<HomeScreen />} />
                 <Route path="/signup" element={<SignUpScreen />} />
@@ -42,8 +43,12 @@ function App() {
                 <Route path="/followers/:userId" element={<FollowersUser />} />
                 <Route path="/search-results" element={<SearchBarContent/>} />
               </Routes>
+              
               <Footer />
             </div>
+            <div className=" bg-slate-950">
+                <SearchBar/>
+              </div>
           </div>
         </UserContextProvider>
       </AuthContextComponent>
