@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom"
 const UpdateUser = () => {
   const navigate = useNavigate()
   const [user, setUser] = useState({userName: "", email: "", password: ""})
-  const [imageUrl, setImageUrl] = useState<File | string | null>(null)
+  const [imageUrl, setImageUrl] = useState<File | string | undefined>()
 
   useEffect(() => {
     async function fetchUser(){
@@ -40,8 +40,6 @@ const UpdateUser = () => {
     }
   }
 
-
-  
   function handleChange(e: React.ChangeEvent<HTMLInputElement>){
     setUser({...user, [e.target.name]: e.target.value})
   }
@@ -51,7 +49,7 @@ const UpdateUser = () => {
     try{
       e.preventDefault()  
       const uploadResponse = await handleUpload();
-      const uploadedImageUrl = uploadResponse.path; 
+      const uploadedImageUrl = uploadResponse?.path; 
 
       await api.put("/updateUser", {
         ...user, imageUrl: uploadedImageUrl
@@ -62,7 +60,6 @@ const UpdateUser = () => {
       console.log(err)
     }
   }
-
 
   return (
     <div className="container mx-auto p-4 h-screen">
@@ -107,8 +104,8 @@ const UpdateUser = () => {
             type="file"
             id="imageUrl"
             name="imageUrl"
+            value={imageUrl ? imageUrl.toString() : ""}
             onChange={handleImage}
-            required
             className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500 text-slate-950"
           />
         </div>
@@ -119,7 +116,7 @@ const UpdateUser = () => {
           </label>
           <input
             type="password"
-            id="formPassword"
+            id="password"
             name="password"
             value={user.password}
             onChange={handleChange}
