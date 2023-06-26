@@ -1,30 +1,26 @@
-import { useState, useEffect } from 'react';
-import { api } from '../api';
-import { User, Post } from '../interfaces';
+import { useState } from "react";
+import { api } from "../api";
+import { useNavigate } from "react-router-dom";
 
 function SearchBar() {
-  const [searchQuery, setSearchQuery] = useState('');
-  const [searchResults, setSearchResults] = useState<User[] | Post[]>([]);
+  const navigate = useNavigate();
+  const [searchQuery, setSearchQuery] = useState("");
 
   const handleSearch = async () => {
-    try {
-      const response = await api.get(`/search?query=${encodeURIComponent(searchQuery)}`);
-      const data = response.data;
-      setSearchResults(data);
-      console.log(data)
-    } catch (err) {
-      console.log(err);
+    if (searchQuery.trim() !== '') {
+      try {
+        const response = await api.get(`/search?query=${encodeURIComponent(searchQuery)}`);
+        const data = response.data;
+        console.log(data);
+        navigate('/search-results', { state: { searchResults: data } });
+      } catch (err) {
+        console.log(err);
+      }
     }
   };
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value);
   };
-  useEffect(() => {
-    handleSearch(); // Trigger search when searchQuery changes
-  }, []);
-
-  console.log('Search Query:', searchQuery); 
-  console.log('Search Results:', searchResults);
 
   return (
     <div>
@@ -33,10 +29,9 @@ function SearchBar() {
         value={searchQuery}
         onChange={handleChange}
         placeholder="Search..."
-        className='text-slate-950'
+        className="text-slate-950"
       />
-      
-       <button onClick={handleSearch}>Search</button>
+      <button onClick={handleSearch}>Search</button>
     </div>
   );
 }

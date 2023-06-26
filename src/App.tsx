@@ -14,6 +14,7 @@ import FollowingsCurrentUser from "./Pages/FollowingsCurrentUser"
 import { UserContextProvider } from "./Components/loggedUserContext"
 import FollowingsUser from "./Pages/FollowingsUser"
 import FollowersUser from "./Pages/FollowersUser"
+import SearchBarContent from "./Pages/SearchBarContent"
 
 
 function App() {
@@ -39,6 +40,7 @@ function App() {
                 <Route path="/followings" element={<FollowingsCurrentUser />} />
                 <Route path="/followings/:userId" element={<FollowingsUser />} />
                 <Route path="/followers/:userId" element={<FollowersUser />} />
+                <Route path="/search-results" element={<SearchBarContent/>} />
               </Routes>
               <Footer />
             </div>
