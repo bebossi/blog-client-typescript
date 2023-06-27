@@ -16,6 +16,7 @@ import FollowingsUser from "./Pages/FollowingsUser"
 import FollowersUser from "./Pages/FollowersUser"
 import SearchBarContent from "./Pages/SearchBarContent"
 import SearchBar from "./Components/searchBar"
+import PostDetails from "./Pages/Post"
 
 
 function App() {
@@ -42,6 +43,7 @@ function App() {
                 <Route path="/followings/:userId" element={<FollowingsUser />} />
                 <Route path="/followers/:userId" element={<FollowersUser />} />
                 <Route path="/search-results" element={<SearchBarContent/>} />
+                <Route path="/post/:postId" element={<PostDetails/>} />
               </Routes>
               
               <Footer />

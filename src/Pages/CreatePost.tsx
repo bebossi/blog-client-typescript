@@ -1,82 +1,82 @@
-import { useState, SyntheticEvent, ChangeEvent  } from "react";
+import { useState, SyntheticEvent, ChangeEvent } from "react";
 import { api } from "../api";
-import { useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom";
 
 function CreatePost() {
-    const navigate = useNavigate()
-    const [content, setContent] = useState("");
-    const [imageUrl, setImageUrl] = useState<File | null>(null)
+  const navigate = useNavigate();
+  const [content, setContent] = useState("");
+  const [imageUrl, setImageUrl] = useState<File | null>(null);
 
-    function handleImage(e: ChangeEvent<HTMLInputElement>) {
-      const file = e.target.files && e.target.files[0]; 
-  
-      if (file) {
-        setImageUrl(file);
-      }
-    }
+  function handleImage(e: ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files && e.target.files[0];
 
-    async function handleUpload() {
-      try {
-        if (imageUrl) {
-          const uploadData = new FormData();
-          uploadData.append("image", imageUrl);
-  
-          const response = await api.post("/uploadImage", uploadData);
-  
-          return response.data;
-        }
-      } catch (error) {
-        console.log(error);
-      }
+    if (file) {
+      setImageUrl(file);
     }
-    const handleSubmit = async (e: SyntheticEvent) => {
-      e.preventDefault();
-  
-      try {
-        let uploadedImageUrl = ""; 
-  
-        if (imageUrl) {
-          const uploadResponse = await handleUpload();
-          uploadedImageUrl = uploadResponse.path;
-        }
-  
-        await api.post("/post", { content, imageUrl: uploadedImageUrl });
-  
-        navigate("/");
-      } catch (error) {
-        console.error("Error creating post:", error);
+  }
+
+  async function handleUpload() {
+    try {
+      if (imageUrl) {
+        const uploadData = new FormData();
+        uploadData.append("image", imageUrl);
+
+        const response = await api.post("/uploadImage", uploadData);
+
+        return response.data;
       }
-    };
-     
-    
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  const handleSubmit = async (e: SyntheticEvent) => {
+    e.preventDefault();
+
+    try {
+      let uploadedImageUrl = "";
+
+      if (imageUrl) {
+        const uploadResponse = await handleUpload();
+        uploadedImageUrl = uploadResponse.path;
+      }
+
+      await api.post("/post", { content, imageUrl: uploadedImageUrl });
+
+      navigate("/");
+    } catch (error) {
+      console.error("Error creating post:", error);
+    }
+  };
 
   return (
-    <div className="h-screen" >
+    <div className="h-screen">
       <h2 className="text-2xl font-bold mb-2 p-4">Create Post</h2>
-       <form onSubmit={handleSubmit} className="container mx-auto p-4 text-black">
-      <textarea
-        value={content}
-        onChange={(e) => setContent(e.target.value)}
-        placeholder="Enter post content"
-        className="block w-full p-2 border border-gray-300 mb-4"
-        rows={4}
-      />
-        <input
-        type="file"
-        onChange={handleImage}
-        placeholder="Enter image url"
-        className="block w-full p-2 border border-gray-300 mb-4"
-      />
-      <button
-        type="submit"
-        className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
+      <form
+        onSubmit={handleSubmit}
+        className="container mx-auto p-4 text-black"
       >
-        Create
-      </button>
-    </form>
+        <textarea
+          value={content}
+          onChange={(e) => setContent(e.target.value)}
+          placeholder="Enter post content"
+          className="block w-full p-2 border border-gray-300 mb-4"
+          rows={4}
+        />
+        <input
+          type="file"
+          onChange={handleImage}
+          placeholder="Enter image url"
+          className="block w-full p-2 border border-gray-300 mb-4"
+        />
+        <button
+          type="submit"
+          className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
+        >
+          Create
+        </button>
+      </form>
     </div>
-  )
+  );
 }
 
-export default CreatePost
-
+export default CreatePost;

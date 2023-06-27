@@ -132,6 +132,7 @@ const UserPostBox: React.FC<UserProps> = ({ user }) => {
                   )}
                   <p className="font-semibold text-lg">{user.userName}</p>
                 </Link>
+                <div className="space-x-2">
                 {user.id === currentUser?.id && (
                   <button
                     className="text-gray-950  text-l font-extrabold hover:shadow-black"
@@ -156,6 +157,7 @@ const UserPostBox: React.FC<UserProps> = ({ user }) => {
                     </button>
                   </>
                 )}
+                </div>
               </div>
               <h3 className="text-2xl font-normal mb-2">{post.content}</h3>
               {post.imageUrl && (

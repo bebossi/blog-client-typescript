@@ -14,7 +14,6 @@ function FollowersUser() {
     async function fetchFollowers() {
       const response = await api.get(`/followers/${params.userId}`);
       const { followers, followHisFollowers } = response.data;
-      console.log(followers)
       setFollowers(followers);
       setIsFollowingHisFollowers(
         followHisFollowers.map(

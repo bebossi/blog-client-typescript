@@ -1,30 +1,24 @@
-import { useState ,SyntheticEvent} from "react";
+import { useState, SyntheticEvent } from "react";
 import { api } from "../api";
-// import { useParams, useNavigate } from "react-router-dom";
 
-function CreateComment( { postId }: { postId: number } ) {
-    // const navigate = useNavigate()
-    const [comment, setComment] = useState("")
-    // const params = useParams();
-    const [showForm, setShowForm] = useState(false);
+function CreateComment({ postId }: { postId: number }) {
+  const [comment, setComment] = useState("");
+  const [showForm, setShowForm] = useState(false);
 
+  const handleSubmit = async (e: SyntheticEvent) => {
+    e.preventDefault();
+    try {
+      await api.post(`/comment/${postId}`, { comment });
 
-    const handleSubmit = async (e: SyntheticEvent) =>  {
-        e.preventDefault();
-        try{
-           await api.post(`/comment/${postId}`, {comment})
-
-           setShowForm(false)
-
-
-        } catch(err){
-            console.log(err);
-        }
+      setShowForm(false);
+    } catch (err) {
+      console.log(err);
     }
+  };
 
-    const handleToggleForm = () => {
-        setShowForm(!showForm);
-      };
+  const handleToggleForm = () => {
+    setShowForm(!showForm);
+  };
 
   return (
     <div>
@@ -54,7 +48,7 @@ function CreateComment( { postId }: { postId: number } ) {
         </form>
       )}
     </div>
-  )
+  );
 }
 
-export default CreateComment
+export default CreateComment;
