@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { User, Post } from "../interfaces";
 import { Link } from "react-router-dom";
 import CreateComment from "../Pages/CreateComment";
@@ -21,6 +21,51 @@ const UserPostBox: React.FC<UserProps> = ({ user }) => {
   );
   const [showDeleteButton, setShowDeleteButton] = useState(false);
   const [showUpdateButton, setShowUpdateButton] = useState(false);
+  const [isLiked, setIsLiked] = useState(false);
+  const [likedPosts, setLikedPosts] = useState<number[]>([]);
+
+  async function checkIfIsLiked(postId: number) {
+    try {
+      const response = await api.get(`/isLiked/${postId}`);
+      setIsLiked(response.data.isLiked);
+      if (response.data.isLiked) {
+        setLikedPosts((prevLikedPosts) => [...prevLikedPosts, postId]);
+      } else {
+        setLikedPosts((prevLikedPosts) =>
+          prevLikedPosts.filter((id) => id !== postId)
+        );
+      }
+      console.log(response.data);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  useEffect(() => {
+    user.posts.map((post) => checkIfIsLiked(post.id));
+  }, []);
+
+  async function likePost(postId: number) {
+    try {
+      await api.post(`/like/${postId}`);
+      setIsLiked(true);
+      setLikedPosts((prevLikedPosts) => [...prevLikedPosts, postId]);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  async function dislikePost(postId: number) {
+    try {
+      await api.delete(`/dislike/${postId}`);
+      setIsLiked(false);
+      setLikedPosts((prevLikedPosts) =>
+        prevLikedPosts.filter((id) => id !== postId)
+      );
+    } catch (err) {
+      console.log(err);
+    }
+  }
 
   async function handleDeleteComment(commentId: number, postId: number) {
     try {
@@ -76,7 +121,10 @@ const UserPostBox: React.FC<UserProps> = ({ user }) => {
           <div key={post.id} className="mb-4 rounded-xl bg-slate-200">
             <div className="py-5 px-10 mx-5 p">
               <div className="flex justify-between">
-                <Link className="flex items-center gap-x-3" to={`/userProfile/${user.id}`}>
+                <Link
+                  className="flex items-center gap-x-3"
+                  to={`/userProfile/${user.id}`}
+                >
                   {user.imageUrl && (
                     <img
                       className="h10 w-10 rounded-full"
@@ -113,6 +161,11 @@ const UserPostBox: React.FC<UserProps> = ({ user }) => {
               <h3 className="text-2xl font-normal mb-2">{post.content}</h3>
               {post.imageUrl && (
                 <img src={post.imageUrl} className="w-56 h-56" />
+              )}
+              {likedPosts.includes(post.id) ? (
+                <button onClick={() => dislikePost(post.id)}>❤️</button>
+              ) : (
+                <button onClick={() => likePost(post.id)}> ♡</button>
               )}
               <div className="mb-2">
                 <h4 className="font-semibold mb-1">Comments</h4>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Post } from "../interfaces";
 import { Link } from "react-router-dom";
 import CreateComment from "../Pages/CreateComment";
@@ -21,6 +21,39 @@ const PostBox: React.FC<PostProps> = ({ post }) => {
   );
   const [showDeleteButton, setShowDeleteButton] = useState(false);
   const [showUpdateButton, setShowUpdateButton] = useState(false);
+  const [isLiked, setIsLiked] = useState(false);
+
+  async function checkIfIsLiked(postId: number) {
+    try {
+      const response = await api.get(`/isLiked/${postId}`);
+      setIsLiked(response.data.isLiked);
+      console.log(response.data);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  async function likePost(postId: number) {
+    try {
+      await api.post(`/like/${postId}`);
+      setIsLiked(true);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  async function dislikePost(postId: number) {
+    try {
+      await api.delete(`/dislike/${postId}`);
+      setIsLiked(false);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  useEffect(() => {
+    checkIfIsLiked(post.id);
+  }, []);
 
   async function handleDeleteComment(commentId: number) {
     try {
@@ -58,7 +91,7 @@ const PostBox: React.FC<PostProps> = ({ post }) => {
 
   const toggleExpandComment = (commentId: number) => {
     setExpandedCommentId((prevId) => (prevId === commentId ? null : commentId));
-    setShowForm(false)
+    setShowForm(false);
   };
 
   const toggleDeleteButton = () => {
@@ -67,16 +100,21 @@ const PostBox: React.FC<PostProps> = ({ post }) => {
   };
 
   return (
-    <div className="bg-gray-200 text-slate-950 p-4 rounded-lg m-6 ">
+    <div className="bg-gray-200 text-slate-950 p-4 rounded-lg mb-3 ml-4 w-3/4 ">
       <div className="flex justify-between items-center">
         <Link
           to={`/userProfile/${post.userId.id}`}
           className="text-gray-600 mb-2 flex items-center"
         >
-         {<img className="h-10 w-10 rounded-full" src={post.userId.imageUrl}/>} 
-         <p className="ml-2">{post.userId.userName}</p>
+          {
+            <img
+              className="h-10 w-10 rounded-full"
+              src={post.userId.imageUrl}
+            />
+          }
+          <p className="ml-2">{post.userId.userName}</p>
         </Link>
-       
+
         {user?.id === post.userId.id && (
           <button
             className="text-gray-950  text-l font-extrabold hover:shadow-black"
@@ -105,6 +143,11 @@ const PostBox: React.FC<PostProps> = ({ post }) => {
       <div className="m-4">
         <h3 className="text-xl font-semibold mb-2">{post.content}</h3>
         {post.imageUrl && <img src={post.imageUrl} className="w-48 h-48" />}
+       {isLiked ? (
+        <button onClick={() => dislikePost(post.id)}>❤️</button>
+       ): (
+        <button onClick={() => likePost(post.id)} > ♡</button>
+       )}
       </div>
       <div className="mb-2">
         <h4 className="font-semibold mb-1">Comments:</h4>

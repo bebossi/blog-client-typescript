@@ -46,7 +46,7 @@ function App() {
               
               <Footer />
             </div>
-            <div className=" bg-slate-950">
+            <div className=" bg-slate-950 fixed right-0 top-0 h-full">
                 <SearchBar/>
               </div>
           </div>

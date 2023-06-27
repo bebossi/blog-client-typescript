@@ -26,6 +26,8 @@ function UserProfile() {
     fetchUser();
   }, []);
 
+
+
   async function followingUser() {
     await api.post(`/followUser/${params.userId}`);
     setIsFollowing(true);
