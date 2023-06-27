@@ -9,6 +9,7 @@ function FollowersCurrentUser() {
   useEffect(() => {
     async function fetchFollowers() {
       const response = await api.get("/followers");
+      console.log(response.data)
       const { followers, isFollowFollower } = response.data;
       console.log(followers)
 
@@ -32,12 +33,12 @@ function FollowersCurrentUser() {
   }
 
   return (
-    <div className="p-4">
-    <p className="text-lg font-bold mb-4">Followings</p>
+    <div className="p-4 h-screen">
+    <p className="text-lg font-bold mb-4">Followers</p>
     {followers.map((follower) => (
       <div
         key={follower.id}
-        className="bg-gray-200 rounded shadow p-4 mb-4 flex items-center justify-between text-slate-950"
+        className="bg-gray-200 rounded shadow p-4 mb-4 flex items-center justify-between text-slate-950 w-9/12"
       >
         <p className="text-lg font-bold">Username: {follower.userName}</p>
         {followedUserIds.includes(follower.id) ? (

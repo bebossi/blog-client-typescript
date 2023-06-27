@@ -5,6 +5,8 @@ export interface User {
     email: string
     posts: Post[]
     comments: Comment[]
+    isFollowing: boolean;
+
 }
 export interface Comment {
     id: number

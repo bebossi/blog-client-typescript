@@ -104,7 +104,6 @@ const UpdateUser = () => {
             type="file"
             id="imageUrl"
             name="imageUrl"
-            value={imageUrl ? imageUrl.toString() : ""}
             onChange={handleImage}
             className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500 text-slate-950"
           />

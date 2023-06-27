@@ -27,7 +27,6 @@ const PostBox: React.FC<PostProps> = ({ post }) => {
     try {
       const response = await api.get(`/isLiked/${postId}`);
       setIsLiked(response.data.isLiked);
-      console.log(response.data);
     } catch (err) {
       console.log(err);
     }
@@ -101,6 +100,8 @@ const PostBox: React.FC<PostProps> = ({ post }) => {
 
   return (
     <div className="bg-gray-200 text-slate-950 p-4 rounded-lg mb-6 ml-16 w-8/12 ">
+      <Link to={`/post/${post.id}`}>
+      <div>
       <div className="flex justify-between items-center">
         <Link
           to={`/userProfile/${post.userId.id}`}
@@ -142,7 +143,7 @@ const PostBox: React.FC<PostProps> = ({ post }) => {
       </div>
       <div className="m-4">
         <h3 className="text-xl font-semibold mb-2">{post.content}</h3>
-        {post.imageUrl && <img src={post.imageUrl} className="w-48 h-48" />}
+        {post.imageUrl && <img src={post.imageUrl} className="w-80 h-48" />}
        {isLiked ? (
         <button onClick={() => dislikePost(post.id)}>❤️</button>
        ): (
@@ -209,6 +210,8 @@ const PostBox: React.FC<PostProps> = ({ post }) => {
         )}
       </div>
       <CreateComment postId={post.id} />
+      </div>
+    </Link>
     </div>
   );
 };

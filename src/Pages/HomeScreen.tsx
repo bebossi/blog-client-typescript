@@ -29,7 +29,7 @@ function HomeScreen() {
  <div> 
     <h1 className="text-4xl my-5 mr-56 text-center text-slate-50" >Feed</h1>
     {posts.map((post) => (
-       <Link to={`/post/${post.id}`}> <PostBox key={post.id} post={post} /></Link>
+       <PostBox key={post.id} post={post} />
     ))}
  </div>
   )

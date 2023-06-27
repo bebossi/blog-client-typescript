@@ -31,7 +31,7 @@ function CurrentUserProfile() {
       <div className="ml-5 mt-3">
         <div className="flex justify-between">         
             <img src={user?.imageUrl} className="w-24 h-24 rounded-full" />         
-          <Link to="/updateUser" className="border rounded-3xl p-1 h-10">
+          <Link to="/updateUser" className="border rounded-3xl p-1 h-10 mr-64">
             Update User
           </Link>
         </div>
