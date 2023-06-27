@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { api } from "../api";
 import { User } from "../interfaces";
 import { useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function FollowersUser() {
   const params = useParams();
@@ -37,9 +38,11 @@ function FollowersUser() {
   }
 
   return (
-    <div className="p-4">
+    <div className="p-4 h-screen">
     <p className="text-lg font-bold mb-4">Followings</p>
     {followers.map((follower) => (
+            <Link to={`/userProfile/${follower.id}`}>
+
       <div
         key={follower.id}
         className="bg-gray-200 rounded w-4/6 shadow p-4 mb-4 flex items-center justify-between text-slate-950 ml-6"
@@ -61,6 +64,7 @@ function FollowersUser() {
           </button>
         )}
       </div>
+      </Link>
     ))}
   </div>
   );
