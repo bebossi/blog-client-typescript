@@ -11,12 +11,12 @@ function Navbar() {
   };
 
   return (
-    <nav className="flex flex-col  items-center py-4 bg-gray-950 text-white min-h-screen fixed w-48">
+    <nav className="flex flex-col  items-center py-5 bg-gray-950 text-white min-h-screen fixed w-48">
       <div className="ml-4">
-        <Link to="/" className="text-xl font-bold mb-4">
-          Logo
+        <Link to="/" className="text-xl font-bold ">
+          LOGO
         </Link>
-        <ul className="flex flex-col space-y-4 mt-2">
+        <ul className="flex flex-col space-y-20 mt-16 text-xl">
           {!loggedInUser && (
             <>
               <li>
@@ -34,12 +34,16 @@ function Navbar() {
           {loggedInUser && (
             <>
               <li>
-                <Link to="/profile" className="text-white hover:text-gray-300">
-                  Profile
+                <Link to="/profile" className= "flex gap-2 text-white hover:text-gray-300">
+                <img className="h-7 w-7 bg-white rounded-full" src="/src/assets/user.png"/>  
+                <p>Profile</p>
                 </Link>
               </li>
               <li>
-                <Link to="/createPost">Create Post</Link>
+                <Link className= "flex gap-2 text-white hover:text-gray-300" to="/createPost">
+                  <img className="h-6 w-6 bg-white rounded-full" src="/src/assets/plus.png"/>
+                  <p>Create Post</p>
+                  </Link>
               </li>
               <li>
                 <button

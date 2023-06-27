@@ -100,7 +100,7 @@ const PostBox: React.FC<PostProps> = ({ post }) => {
   };
 
   return (
-    <div className="bg-gray-200 text-slate-950 p-4 rounded-lg mb-3 ml-4 w-3/4 ">
+    <div className="bg-gray-200 text-slate-950 p-4 rounded-lg mb-6 ml-16 w-8/12 ">
       <div className="flex justify-between items-center">
         <Link
           to={`/userProfile/${post.userId.id}`}

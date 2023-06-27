@@ -35,7 +35,6 @@ const UserPostBox: React.FC<UserProps> = ({ user }) => {
           prevLikedPosts.filter((id) => id !== postId)
         );
       }
-      console.log(response.data);
     } catch (err) {
       console.log(err);
     }
@@ -115,7 +114,7 @@ const UserPostBox: React.FC<UserProps> = ({ user }) => {
 
   return (
     <div className=" text-slate-950 p-4 rounded-lg m-6">
-      <div className="mb-2">
+      <div className="mb-2 w-9/12">
         <div></div>
         {user.posts.map((post: Post) => (
           <div key={post.id} className="mb-4 rounded-xl bg-slate-200">

@@ -14,6 +14,7 @@ function FollowersUser() {
     async function fetchFollowers() {
       const response = await api.get(`/followers/${params.userId}`);
       const { followers, followHisFollowers } = response.data;
+      console.log(followers)
       setFollowers(followers);
       setIsFollowingHisFollowers(
         followHisFollowers.map(
@@ -42,7 +43,7 @@ function FollowersUser() {
     {followers.map((follower) => (
       <div
         key={follower.id}
-        className="bg-gray-200 rounded shadow p-4 mb-4 flex items-center justify-between text-slate-950"
+        className="bg-gray-200 rounded w-4/6 shadow p-4 mb-4 flex items-center justify-between text-slate-950 ml-6"
       >
         <p className="text-lg font-bold">Username: {follower.userName}</p>
         {isFollowingHisFollowers.includes(follower.id) ? (

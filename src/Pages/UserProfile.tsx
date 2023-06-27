@@ -26,8 +26,6 @@ function UserProfile() {
     fetchUser();
   }, []);
 
-
-
   async function followingUser() {
     await api.post(`/followUser/${params.userId}`);
     setIsFollowing(true);
@@ -54,10 +52,10 @@ function UserProfile() {
         </div>
         <h1 className="text-3xl font-bold "> {user?.userName}</h1>
         <div className="flex gap-6 ">
-          <Link to={`/followings`}>
+          <Link to={`/followings/${user?.id}`}>
             <h2 className="text-xl mb-2">{followersCount} Following </h2>
           </Link>
-          <Link to={`/followers`}>
+          <Link to={`/followers/${user?.id}`}>
             <h2 className="text-xl mb-2">{followingsCount} Followers </h2>
           </Link>
         </div>

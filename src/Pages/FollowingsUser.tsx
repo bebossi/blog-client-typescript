@@ -37,7 +37,7 @@ function FollowingsUser() {
       {followings.map((following) => (
         <div
           key={following.id}
-          className="bg-gray-200 rounded shadow p-4 mb-4 flex items-center justify-between text-slate-950"
+          className="bg-gray-200 rounded shadow w-4/6 ml-6 p-4 mb-4 flex items-center justify-between text-slate-950"
         >
           <p className="text-lg font-bold">Username: {following.userName}</p>
           {isSameFollowings.includes(following.id) ? (

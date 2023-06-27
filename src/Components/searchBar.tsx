@@ -22,7 +22,7 @@ function SearchBar() {
   };
 
   return (
-    <div className="mt-4 ml-2 mr-2">
+    <div className="mt-6 ml-2 mr-2 flex items-center">
       <input
         type="text"
         value={searchQuery}
@@ -30,7 +30,7 @@ function SearchBar() {
         placeholder="Search..."
         className="text-slate-950 rounded-2xl mr-2 p-1"
       />
-      <button onClick={handleSearch}>Search</button>
+      <button onClick={handleSearch}> <img className="h-9 w-9 p-1 bg-white rounded-s-2xl" src="/src/assets/search.png" /> </button>
     </div>
   );
 }
