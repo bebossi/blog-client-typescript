@@ -6,7 +6,7 @@ export interface User {
     posts: Post[]
     comments: Comment[]
     isFollowing: boolean;
-
+    likes: Like[]
 }
 export interface Comment {
     id: number
@@ -21,4 +21,9 @@ export interface Post {
   imageUrl: string;
   userId: User; 
   comments: Comment[]
+  }
+  export interface Like {
+    id: number;
+    postId: Post;
+    userId: User;
   }

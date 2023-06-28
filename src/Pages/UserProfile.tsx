@@ -4,6 +4,7 @@ import { api } from "../api";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import UserPostBox from "../Components/UserPostBox";
+import PostBox from "../Components/PostBox";
 
 function UserProfile() {
   const params = useParams();
@@ -12,6 +13,8 @@ function UserProfile() {
   const [followersCount, setFollowersCount] = useState(0);
   const [isFollowing, setIsFollowing] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [showUserPosts, setShowUserPosts] = useState(true);
+
 
   useEffect(() => {
     async function fetchUser() {
@@ -41,6 +44,14 @@ function UserProfile() {
     return <div>Loading...</div>;
   }
 
+  const handleShowPosts = () => {
+    setShowUserPosts(true);
+  };
+
+  const handleShowLikes = () => {
+    setShowUserPosts(false);
+  };
+
   return (
     <div className="container mx-auto p-4">
       <div className="ml-5 mt-3">
@@ -67,9 +78,43 @@ function UserProfile() {
       >
         {followButtonLabel}
       </button>
-      <h3 className="text-2xl font-bold my-2 ml-10 ">Posts</h3>
-      <UserPostBox key={user?.id} user={user as User} />
-    </div>
+      <div className="flex gap-4 mb-4 ml-10">
+          <button
+            className={`${
+              showUserPosts
+                ? "underline decoration-sky-500  text-white"
+                : "text-white"
+            } py-1 px-3 rounded`}
+            onClick={handleShowPosts}
+          >
+            Posts
+          </button>
+          <button
+            className={`${
+              !showUserPosts
+                ? " text-white underline decoration-blue-500"
+                : "text-white "
+            } py-1 px-3 rounded`}
+            onClick={handleShowLikes}
+          >
+            Likes
+          </button>
+        </div>
+        {showUserPosts ? (
+          <>
+            <h3 className="text-2xl font-bold mb-2 ml-10">Posts</h3>
+            <UserPostBox key={user?.id} user={user as User} />
+          </>
+        ) : (
+          <>
+            <h3 className="text-2xl font-bold mb-2 ml-10">Likes</h3>
+            {user?.likes.map((like) => (
+              <PostBox post={like.postId} />
+            ))}
+          </>
+        )}
+      </div>
+    
   );
 }
 
