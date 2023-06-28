@@ -37,7 +37,7 @@ function FollowersCurrentUser() {
     <div className="p-4 h-screen">
     <p className="text-lg font-bold mb-4">Followers</p>
     {followers.map((follower) => (
-      <Link to={`/userProfile/${follower.id}`}>
+      <Link key={follower.id} to={`/userProfile/${follower.id}`}>
       <div
         key={follower.id}
         className="bg-gray-200 rounded shadow p-4 mb-4 flex items-center justify-between text-slate-950 w-9/12"

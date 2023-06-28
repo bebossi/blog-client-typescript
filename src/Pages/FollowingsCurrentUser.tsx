@@ -54,7 +54,7 @@ function FollowingsCurrentUser() {
       <p className="text-lg font-bold mb-4">Followings</p>
       <div className="grid gap-4 ">
         {followings.map((following) => (
-          <Link to={`/userProfile/${following.id}`}>
+          <Link key={following.id} to={`/userProfile/${following.id}`}>
           <div key={following.id} className="p-4 bg-gray-200 rounded shadow text-slate-950 flex items-center justify-between w-9/12">
            <p className="text-lg font-bold mb-2">
               Username: {following.userName}

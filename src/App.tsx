@@ -1,5 +1,4 @@
 import NavBar from "./Components/NavBar"
-import Footer from "./Components/Footer"
 import {  Route, Routes } from "react-router-dom"
 import HomeScreen from "./Pages/HomeScreen"
 import LoginScreen from "./Pages/LoginScreen"
@@ -45,8 +44,7 @@ function App() {
                 <Route path="/search-results" element={<SearchBarContent/>} />
                 <Route path="/post/:postId" element={<PostDetails/>} />
               </Routes>
-              
-              <Footer />
+             
             </div>
             <div className=" bg-slate-950 fixed right-0 top-0 h-full">
                 <SearchBar/>

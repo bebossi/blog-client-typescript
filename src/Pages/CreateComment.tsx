@@ -21,7 +21,7 @@ function CreateComment({ postId }: { postId: number }) {
   };
 
   return (
-    <div>
+    <div className="">
       <button
         onClick={handleToggleForm}
         className="bg-slate-700 hover:bg-slate-950 text-white font-bold py-1 px-2 rounded-3xl"

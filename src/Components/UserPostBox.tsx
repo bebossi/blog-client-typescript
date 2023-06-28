@@ -23,6 +23,8 @@ const UserPostBox: React.FC<UserProps> = ({ user }) => {
   const [showUpdateButton, setShowUpdateButton] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
   const [likedPosts, setLikedPosts] = useState<number[]>([]);
+  const [showComments, setShowComments] = useState(false); // Track visibility of comments
+
 
   async function checkIfIsLiked(postId: number) {
     try {
@@ -112,6 +114,10 @@ const UserPostBox: React.FC<UserProps> = ({ user }) => {
     setShowUpdateButton((prevShowUpdateButton) => !prevShowUpdateButton);
   };
 
+  const toggleComments = () => {
+    setShowComments((prevShowComments) => !prevShowComments);
+  };
+
   return (
     <div className=" text-slate-950 p-4 rounded-lg m-6">
       <div className="mb-2 w-9/12">
@@ -170,6 +176,7 @@ const UserPostBox: React.FC<UserProps> = ({ user }) => {
               )}
               <div className="mb-2">
                 <h4 className="font-semibold mb-1">Comments</h4>
+                
                 {post.comments.map((comment, index) => (
                   <div
                     key={index}

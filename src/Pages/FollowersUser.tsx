@@ -31,7 +31,7 @@ function FollowersUser() {
   }
 
   async function unfollowUser(userId: number) {
-    await api.delete(`/followUser/${userId}`);
+    await api.delete(`/unfollowUser/${userId}`);
     setIsFollowingHisFollowers(
       isFollowingHisFollowers.filter((id) => id !== userId)
     );
@@ -39,9 +39,9 @@ function FollowersUser() {
 
   return (
     <div className="p-4 h-screen">
-    <p className="text-lg font-bold mb-4">Followings</p>
+    <p className="text-lg font-bold mb-4">Followers</p>
     {followers.map((follower) => (
-            <Link to={`/userProfile/${follower.id}`}>
+            <Link key={follower.id} to={`/userProfile/${follower.id}`}>
 
       <div
         key={follower.id}
@@ -50,14 +50,20 @@ function FollowersUser() {
         <p className="text-lg font-bold">Username: {follower.userName}</p>
         {isFollowingHisFollowers.includes(follower.id) ? (
           <button
-            onClick={() => unfollowUser(follower.id)}
+           onClick={(event) => {
+                  event.preventDefault();
+                  unfollowUser(follower.id);
+                }}
             className="bg-red-950 hover:bg-red-900 text-white font-bold py-2 px-6 rounded"
           >
             Unfollow
           </button>
         ) : (
           <button
-            onClick={() => followUser(follower.id)}
+             onClick={(event) => {
+                  event.preventDefault();
+                  followUser(follower.id);
+                }}
             className="bg-sky-950 hover:bg-sky-900 text-white font-bold py-2 px-8 rounded"
           >
             Follow
