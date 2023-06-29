@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom"
 
 const UpdateUser = () => {
   const navigate = useNavigate()
-  const [user, setUser] = useState({userName: "", email: "", password: ""})
+  const [user, setUser] = useState({userName: "", email: ""})
   const [imageUrl, setImageUrl] = useState<File | string | undefined>()
 
   useEffect(() => {
@@ -55,6 +55,7 @@ const UpdateUser = () => {
         ...user, imageUrl: uploadedImageUrl
       })
       navigate("/")
+      console.log("enviado")
 
     } catch(err){
       console.log(err)
@@ -109,7 +110,7 @@ const UpdateUser = () => {
           />
         </div>
 
-        <div className="mb-4">
+        {/* <div className="mb-4">
           <label htmlFor="password" className="block font-bold mb-2">
             Password:
           </label>
@@ -122,7 +123,7 @@ const UpdateUser = () => {
             required
             className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none  text-slate-950"
           />
-        </div>
+        </div> */}
 
         <button
           type="submit"

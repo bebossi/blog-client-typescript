@@ -2,7 +2,6 @@ import { api } from "../api"
 import {  useEffect, useState } from "react";
 import PostBox from "../Components/PostBox";
 import { Post} from "../interfaces"
-import { Link } from "react-router-dom";
 
 function HomeScreen() {
     const [posts, setPosts] = useState<Post[]>([])
@@ -16,7 +15,6 @@ function HomeScreen() {
 
             setPosts([...response.data])
             setIsLoading(false);
-
         }
         fetchPosts()    
     }, [])  
