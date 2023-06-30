@@ -5,14 +5,15 @@ import { AuthContext } from "./authContextComponents";
 function Navbar() {
   const { loggedInUser, setLoggedInUser } = useContext(AuthContext);
 
+
   const handleLogout = () => {
     document.cookie = "Bearer=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     setLoggedInUser(null);
   };
 
   return (
-    <nav className="flex flex-col  items-center py-5 bg-gray-950 text-white min-h-screen fixed w-48">
-      <div className="ml-4">
+    <nav className="flex flex-col  items-center py-5 bg-gray-950 text-white min-h-screen fixed w-60">
+      <div>
         <Link to="/" className="text-xl font-bold ">
           LOGO
         </Link>

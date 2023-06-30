@@ -22,7 +22,7 @@ function SearchBar() {
   };
 
   return (
-    <div className="mt-6 ml-2 mr-2 flex items-center">
+    <div className="mt-6  mr-4 flex items-center">
       <input
         type="text"
         value={searchQuery}

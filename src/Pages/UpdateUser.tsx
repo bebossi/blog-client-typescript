@@ -110,21 +110,6 @@ const UpdateUser = () => {
           />
         </div>
 
-        {/* <div className="mb-4">
-          <label htmlFor="password" className="block font-bold mb-2">
-            Password:
-          </label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            value={user.password}
-            onChange={handleChange}
-            required
-            className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none  text-slate-950"
-          />
-        </div> */}
-
         <button
           type="submit"
           className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"

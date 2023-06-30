@@ -24,11 +24,11 @@ function App() {
     <>
       <AuthContextComponent>
         <UserContextProvider>
-          <div className="flex bg-slate-700 text-slate-200 min-h-screen">
+          <div className="flex bg-gray-950 text-slate-200 min-h-screen">
             <div>
               <NavBar />
             </div>
-            <div className="flex-grow overflow-y-auto ml-48 ">
+            <div className="flex-grow overflow-y-auto ml-60 ">
               <Routes>
                 <Route path="/" element={<HomeScreen />} />
                 <Route path="/signup" element={<SignUpScreen />} />
@@ -44,9 +44,8 @@ function App() {
                 <Route path="/search-results" element={<SearchBarContent/>} />
                 <Route path="/post/:postId" element={<PostDetails/>} />
               </Routes>
-             
             </div>
-            <div className=" bg-slate-950 fixed right-0 top-0 h-full">
+            <div className="bg-gray-950 fixed right-0 top-0 h-full">
                 <SearchBar/>
               </div>
           </div>
