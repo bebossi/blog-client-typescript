@@ -15,7 +15,7 @@ function SearchBarContent() {
       <div >
         <h2 className="m-3"> Users</h2>
         {searchResults.users.map((user: User) => (
-          <Link to={`/userProfile/${user.id}`}>
+          <Link key={user.id} to={`/userProfile/${user.id}`}>
           <div className="flex gap-3 items-center m-4" key={user.id}>
             {<img className="h-12 w-12 rounded-full" src={user.imageUrl} />}
             <p>{user.userName}</p>

@@ -27,3 +27,8 @@ export interface Post {
     postId: Post;
     userId: User;
   }
+  export interface Search {
+    id: number;
+    userId: User;
+    search: string;
+  }

@@ -1,11 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 import { api } from "../api";
 import { useNavigate } from "react-router-dom";
+import { Search } from "../interfaces";
 
 function SearchBar() {
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState("");
-  const [lastSearches, setLastSearches] = useState<string[]>([]);
+  const [lastSearches, setLastSearches] = useState<Search[]>([]);
   const [showLastSearches, setShowLastSearches] = useState(false);
   const searchInputRef = useRef<HTMLInputElement | null>(null);
 
@@ -38,24 +39,26 @@ function SearchBar() {
         );
         const data = response.data;
         navigate("/search-results", { state: { searchResults: data } });
-        saveLastSearch(searchQuery);
-        setSearchQuery("")
+        setSearchQuery("");
       } catch (err) {
         console.log(err);
       }
     }
   };
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value);
   };
 
-  const saveLastSearch = (searchQuery: string) => {
-    setLastSearches((prevSearches) => [searchQuery, ...prevSearches]);
-  };
+  useEffect(() => {
+    const getLastSearch = async () => {
+      const response = await api.get("/searchHistory");
+      setLastSearches(response.data);
+      console.log(lastSearches);
+    };
 
-  const handleInputClick = () => {
-    setShowLastSearches(!showLastSearches);
-  };
+    getLastSearch();
+  }, []);
 
   const handleLastSearchClick = async (clickedSearch: string) => {
     try {
@@ -64,12 +67,13 @@ function SearchBar() {
       );
       const data = response.data;
       navigate("/search-results", { state: { searchResults: data } });
-      saveLastSearch(clickedSearch);
-      setSearchQuery("")
-
+      setSearchQuery("");
     } catch (err) {
       console.log(err);
     }
+  };
+  const handleInputClick = () => {
+    setShowLastSearches(!showLastSearches);
   };
 
   return (
@@ -97,10 +101,11 @@ function SearchBar() {
           <div className="border-solid border-white border rounded-md px-3">
             {lastSearches.map((lastSearch) => (
               <p
-                onClick={() => handleLastSearchClick(lastSearch)}
+                key={lastSearch.id}
+                onClick={() => handleLastSearchClick(lastSearch.search)}
                 className="pb-1"
               >
-                {lastSearch}
+                {lastSearch.search}
               </p>
             ))}
           </div>
