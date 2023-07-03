@@ -1,20 +1,21 @@
-import {  useEffect, useState } from "react";
+import { useEffect, useState, useContext, SyntheticEvent } from "react";
 import { api } from "../api";
 import { Chat } from "../interfaces";
+import { AuthContext } from "./authContextComponents";
 
 function Chats() {
   const [chats, setChats] = useState<Chat[]>([]);
   const [chat, setChat] = useState<Chat | undefined>();
   const [showChat, setShowChat] = useState(false);
   const [showChats, setShowChats] = useState(false);
-
+  const [sendingMessage, setSendingMessage] = useState("");
+  const user = useContext(AuthContext);
 
   useEffect(() => {
     const fetchChats = async () => {
       const response = await api.get(`/chats`);
       const data = response.data;
       setChats(data);
-      console.log(response.data);
     };
     fetchChats();
   }, []);
@@ -26,11 +27,12 @@ function Chats() {
       setChat(data);
       setShowChat(true);
       setShowChats(false);
-      console.log(response.data);
     } catch (error) {
       console.log(error);
     }
   };
+
+  useEffect(() => {}, [chat]);
 
   const toggleChat = async () => {
     setShowChats(!showChats);
@@ -40,7 +42,24 @@ function Chats() {
 
   const handleUsernameClick = (userId: number) => {
     fetchChat(userId);
-    console.log(userId);
+  };
+
+  const handleSubmit = async (
+    e: SyntheticEvent,
+    userId: number,
+    chatId: number
+  ) => {
+    e.preventDefault();
+    try {
+      if (!sendingMessage) {
+        return;
+      }
+       await api.post(`/message/${userId}/${chatId}`, {
+        message: sendingMessage,
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -81,11 +100,34 @@ function Chats() {
       {showChat && chat && (
         <div>
           <button onClick={toggleChat}>←</button>
-          <h2>
-            {chat.messages.map((message) => (
-              <p key={message.id} >{message.message}</p>
-            ))}
-          </h2>
+          <div>
+            {chat.messages.map((message) => {
+              console.log(chat);
+              return (
+                <div>
+                  <p
+                    key={message.id}
+                    className={
+                      message.senderId.id === user.user.id
+                        ? "text-right"
+                        : "text-left"
+                    }
+                  >
+                    {message.message}
+                  </p>
+                </div>
+              );
+            })}
+          </div>
+          <div>
+            <form onSubmit={(e) => handleSubmit(e, chat.users[0].id, chat.id)}>
+              <input
+                value={sendingMessage}
+                onChange={(e) => setSendingMessage(e.target.value)}
+              />
+              <button type="submit">Send</button>
+            </form>
+          </div>
         </div>
       )}
     </div>

@@ -1,9 +1,11 @@
 import { createContext, useState, useEffect } from "react";
+import jwtDecode from "jwt-decode";
 
 const AuthContext = createContext<any>(null);
 
 function AuthContextComponent(props: any) {
   const [loggedInUser, setLoggedInUser] = useState<string | null >(null);
+  const [user, setUser] = useState()
 
 
   useEffect(() => {
@@ -13,7 +15,13 @@ function AuthContextComponent(props: any) {
     ?.split("=")[1];
     
     if (storedToken) {  
-      setLoggedInUser(storedToken);
+      try{
+        const decodedUser: any = jwtDecode(storedToken)
+        setUser(decodedUser)
+        setLoggedInUser(storedToken);
+      } catch(err){
+        console.log(err);
+      }
     } else {
       setLoggedInUser(null); 
     }
@@ -22,7 +30,7 @@ function AuthContextComponent(props: any) {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ loggedInUser, setLoggedInUser }}>
+    <AuthContext.Provider value={{ loggedInUser, setLoggedInUser, user, setUser }}>
        { props.children}
     </AuthContext.Provider>
   );
