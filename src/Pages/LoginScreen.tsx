@@ -1,11 +1,14 @@
-import { useState, SyntheticEvent } from "react";
+import { useState, SyntheticEvent, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { api } from "../api";
+import { AuthContext } from "../Components/authContextComponents";
 
 function LoginScreen() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { setLoggedInUser } = useContext(AuthContext);
+
 
   const submitHandler = async (e: SyntheticEvent) => {
     try {
@@ -17,6 +20,7 @@ function LoginScreen() {
         const token = data.token;
         console.log(data);
         document.cookie = `Bearer=${token}; path=/;`;
+        setLoggedInUser(token)
       }
       navigate("/");
     } catch (err) {

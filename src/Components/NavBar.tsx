@@ -1,9 +1,10 @@
-import { useContext } from "react";
-import { Link } from "react-router-dom";
+import { useContext, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { AuthContext } from "./authContextComponents";
 
 function Navbar() {
   const { loggedInUser, setLoggedInUser } = useContext(AuthContext);
+  const location = useLocation();
 
 
   const handleLogout = () => {
@@ -11,6 +12,9 @@ function Navbar() {
     setLoggedInUser(null);
   };
 
+  useEffect(() => {
+    console.log("loggedInUser changed:", loggedInUser);
+  }, [loggedInUser, location]);
   return (
     <nav className="flex flex-col  items-center py-5 bg-gray-950 text-white min-h-screen fixed w-60">
       <div>
@@ -18,21 +22,7 @@ function Navbar() {
           LOGO
         </Link>
         <ul className="flex flex-col space-y-20 mt-16 text-xl">
-          {!loggedInUser && (
-            <>
-              <li>
-                <Link to="/signup" className="text-white hover:text-gray-300">
-                  Sign Up
-                </Link>
-              </li>
-              <li>
-                <Link to="/login" className="text-white hover:text-gray-300">
-                  Login
-                </Link>
-              </li>
-            </>
-          )}
-          {loggedInUser && (
+        {loggedInUser && (
             <>
               <li>
                 <Link to="/profile" className= "flex gap-2 text-white hover:text-gray-300">
@@ -56,6 +46,21 @@ function Navbar() {
               </li>
             </>
           )}
+          {!loggedInUser && (
+            <>
+              <li>
+                <Link to="/signup" className="text-white hover:text-gray-300">
+                  Sign Up
+                </Link>
+              </li>
+              <li>
+                <Link to="/login" className="text-white hover:text-gray-300">
+                  Login
+                </Link>
+              </li>
+            </>
+          )}
+       
         </ul>
       </div>
     </nav>
