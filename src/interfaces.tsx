@@ -32,3 +32,18 @@ export interface Post {
     userId: User;
     search: string;
   }
+
+  export interface Chat {
+    id: number;
+    users: User[];
+    messages: Message[]
+  }
+
+  export interface Message {
+    id: number;
+    message: string;
+    senderId: User
+    recipientId: User
+    chatId: Chat
+    createdAt: Date
+  }

@@ -16,6 +16,7 @@ import FollowersUser from "./Pages/FollowersUser"
 import SearchBarContent from "./Pages/SearchBarContent"
 import SearchBar from "./Components/searchBar"
 import PostDetails from "./Pages/Post"
+import Chats from "./Components/Chats"
 
 
 function App() {
@@ -45,8 +46,15 @@ function App() {
                 <Route path="/post/:postId" element={<PostDetails/>} />
               </Routes>
             </div>
-            <div className="bg-gray-950 fixed right-0 top-0 h-full">
+            <div className="bg-gray-950 fixed right-0 top-0 h-full pr-16 ">
+              <div className="relative">
                 <SearchBar/>
+
+              </div>
+              <div className="absolute bottom-0 w-full">
+
+                <Chats/>
+              </div>
               </div>
           </div>
         </UserContextProvider>

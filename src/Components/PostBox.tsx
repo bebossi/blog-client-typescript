@@ -105,7 +105,7 @@ const PostBox: React.FC<PostProps> = ({ post }) => {
 
   return (
     <div className="">
-      <div className="bg-gray-200 text-slate-950 p-4 rounded-lg mb-6 ml-16 w-8/12">
+      <div className="bg-gray-200 text-slate-950 p-4 rounded-lg mb-6 ml-16 w-7/12">
         <div className="flex justify-between items-center">
           <Link
             to={`/userProfile/${post.userId.id}`}
@@ -160,7 +160,7 @@ const PostBox: React.FC<PostProps> = ({ post }) => {
               Comments ({post.comments.length})
             </button>
           </h4>
-          {showComments && ( // Render comments only if showComments is true
+          {showComments && (
             <div>
               {post.comments.map((comment, index) => (
                 <div

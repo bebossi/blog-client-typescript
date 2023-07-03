@@ -54,7 +54,6 @@ function SearchBar() {
     const getLastSearch = async () => {
       const response = await api.get("/searchHistory");
       setLastSearches(response.data);
-      console.log(lastSearches);
     };
 
     getLastSearch();

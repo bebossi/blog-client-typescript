@@ -1,10 +1,9 @@
 import { useContext, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { AuthContext } from "./authContextComponents";
 
 function Navbar() {
   const { loggedInUser, setLoggedInUser } = useContext(AuthContext);
-  const location = useLocation();
 
 
   const handleLogout = () => {
@@ -13,8 +12,7 @@ function Navbar() {
   };
 
   useEffect(() => {
-    console.log("loggedInUser changed:", loggedInUser);
-  }, [loggedInUser, location]);
+  }, [loggedInUser]);
   return (
     <nav className="flex flex-col  items-center py-5 bg-gray-950 text-white min-h-screen fixed w-60">
       <div>

@@ -19,7 +19,7 @@ function AuthContextComponent(props: any) {
     }
 
  
-  }, [loggedInUser]);
+  }, []);
 
   return (
     <AuthContext.Provider value={{ loggedInUser, setLoggedInUser }}>
