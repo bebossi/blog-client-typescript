@@ -17,6 +17,7 @@ import SearchBarContent from "./Pages/SearchBarContent"
 import SearchBar from "./Components/searchBar"
 import PostDetails from "./Pages/Post"
 import Chats from "./Components/Chats"
+import ChatsPage from "./Pages/ChatsPage"
 
 
 function App() {
@@ -25,11 +26,11 @@ function App() {
     <>
       <AuthContextComponent>
         <UserContextProvider>
-          <div className="flex bg-gray-950 text-slate-200 min-h-screen">
+          <div className="flex bg-gray-950 text-slate-200 min-h-screen max-h-full">
             <div>
               <NavBar />
             </div>
-            <div className="flex-grow overflow-y-auto ml-60 ">
+            <div className="flex-grow overflow-y-auto ml-60 mr-80">
               <Routes>
                 <Route path="/" element={<HomeScreen />} />
                 <Route path="/signup" element={<SignUpScreen />} />
@@ -44,6 +45,7 @@ function App() {
                 <Route path="/followers/:userId" element={<FollowersUser />} />
                 <Route path="/search-results" element={<SearchBarContent/>} />
                 <Route path="/post/:postId" element={<PostDetails/>} />
+                <Route path="/chats" element={<ChatsPage/>}/>
               </Routes>
             </div>
             <div className="bg-gray-950 fixed right-0 top-0 h-full pr-16 ">

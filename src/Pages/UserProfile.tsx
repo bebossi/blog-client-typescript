@@ -84,7 +84,7 @@ function UserProfile() {
       >
         {followButtonLabel}
       </button>
-      <button onClick={() => createChat()}>✉</button>
+     <Link to={"/chats"}> <button onClick={() => createChat()}>✉</button></Link>
       </div>
       <div className="flex gap-4 mb-4 ml-10">
           <button

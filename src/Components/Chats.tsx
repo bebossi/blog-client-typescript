@@ -104,7 +104,7 @@ function Chats() {
         Chats
       </h1>
       {showChats && (
-        <ul>
+        <ul className="overflow-y-scroll max-h-80">
           {chats.map((chat) => (
             <li key={chat.id}>
               {chat.users.map((user) => {
