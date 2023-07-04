@@ -35,7 +35,6 @@ function Chats() {
     }
   };
 
-
   const toggleChat = async () => {
     setShowChats(!showChats);
     setShowChat(false);
@@ -60,38 +59,24 @@ function Chats() {
         message: sendingMessage,
       });
 
-      const sentMessage = response.data
-       socket.emit("sendMessage", {
-        sentMessage
-       });
+      const sentMessage = response.data;
+      socket.emit("sendMessage", {
+        sentMessage,
+      });
 
-       setChat((prevChat: Chat | undefined) => {
+      setChat((prevChat: Chat | undefined) => {
         const updatedChat = { ...prevChat! };
-        updatedChat.messages = [...updatedChat.messages, sentMessage]
+        updatedChat.messages = [...updatedChat.messages, sentMessage];
         return updatedChat;
       });
-       setSendingMessage("")
+      setSendingMessage("");
     } catch (error) {
       console.log(error);
     }
   };
 
-//   useEffect(() => {
-//     socket.on("receivedMessage", (data) => {
-//         console.log(data)
-//       if (chat && data.sentMessage.chatId.id === chat.id) {
-//         setChat((prevChat: Chat | undefined) => {
-//           const updatedChat = { ...prevChat! };
-//           updatedChat.messages = [...updatedChat.messages, data.sentMessage]
-//           console.log(updatedChat)
-//           return updatedChat;
-//         });
-//       }
-//     });
-//   }, [socket, chat]);
-
-useEffect(() => {
-    const handleReceivedMessage = (data: { sentMessage: Message; }) => {
+  useEffect(() => {
+    const handleReceivedMessage = (data: { sentMessage: Message }) => {
       console.log(data);
       if (chat && data.sentMessage.chatId.id === chat.id) {
         setChat((prevChat) => {
@@ -102,14 +87,13 @@ useEffect(() => {
         });
       }
     };
-  
+
     socket.on("receivedMessage", handleReceivedMessage);
-  
+
     return () => {
       socket.off("receivedMessage", handleReceivedMessage);
     };
   }, [socket, chat]);
-
 
   return (
     <div className="bg-gray-200 text-slate-950 rounded-t mr-2">
@@ -124,7 +108,6 @@ useEffect(() => {
           {chats.map((chat) => (
             <li key={chat.id}>
               {chat.users.map((user) => {
-                //   console.log(user.id);
                 return (
                   <div className="">
                     <div className=" flex p-1">
@@ -148,33 +131,44 @@ useEffect(() => {
       )}
       {showChat && chat && (
         <div>
-          <button onClick={toggleChat}>←</button>
-          <div>
-            
-            {chat.messages && chat.messages.map((message) => {
-              return (
-                <div>
-                  <p
-                    key={message.id}
-                    className={
-                      message.senderId?.id === user.user.id
-                        ? "text-right"
-                        : "text-left"
-                    }
-                  >
-                    {message.message}
-                  </p>
-                </div>
-              );
-            })}
+          <div className="flex">
+            <button onClick={toggleChat}>←</button>
+            <p className="mx-5">{chat.users[0].userName}</p>
+          </div>
+          <div className="overflow-y-scroll h-80">
+            {chat.messages &&
+              chat.messages.map((message) => {
+                return (
+                  <div >
+                    <p
+                      key={message.id}
+                      className={
+                        message.senderId?.id === user.user.id
+                          ? "text-right bg-sky-400 rounded-md px-3 max-w-fit ms-auto mb-1 mr-1"
+                          : "text-left bg-slate-300 max-w-fit px-3 mb-1 rounded-md ml-1"
+                      }
+                    >
+                      {message.message} 
+                    </p>
+                  </div>
+                );
+              })}
           </div>
           <div>
-            <form onSubmit={(e) => handleSubmit(e, chat.users[0].id, chat.id)}>
+            <form
+              className="flex justify-center py-1"
+              onSubmit={(e) => handleSubmit(e, chat.users[0].id, chat.id)}
+            >
               <input
+                className="rounded-md"
+                placeholder="Send a new message"
                 value={sendingMessage}
                 onChange={(e) => setSendingMessage(e.target.value)}
               />
-              <button type="submit">Send</button>
+              <button type="submit" className="px-1">
+                {" "}
+                ➔
+              </button>
             </form>
           </div>
         </div>
