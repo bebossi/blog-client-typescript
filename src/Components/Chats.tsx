@@ -1,7 +1,8 @@
 import { useEffect, useState, useContext, SyntheticEvent } from "react";
 import { api } from "../api";
-import { Chat } from "../interfaces";
+import { Chat, Message } from "../interfaces";
 import { AuthContext } from "./authContextComponents";
+import socket from "../socketio";
 
 function Chats() {
   const [chats, setChats] = useState<Chat[]>([]);
@@ -27,12 +28,13 @@ function Chats() {
       setChat(data);
       setShowChat(true);
       setShowChats(false);
+
+      socket.emit("getChat", data.id);
     } catch (error) {
       console.log(error);
     }
   };
 
-  useEffect(() => {}, [chat]);
 
   const toggleChat = async () => {
     setShowChats(!showChats);
@@ -54,13 +56,60 @@ function Chats() {
       if (!sendingMessage) {
         return;
       }
-       await api.post(`/message/${userId}/${chatId}`, {
+      const response = await api.post(`/message/${userId}/${chatId}`, {
         message: sendingMessage,
       });
+
+      const sentMessage = response.data
+       socket.emit("sendMessage", {
+        sentMessage
+       });
+
+       setChat((prevChat: Chat | undefined) => {
+        const updatedChat = { ...prevChat! };
+        updatedChat.messages = [...updatedChat.messages, sentMessage]
+        return updatedChat;
+      });
+       setSendingMessage("")
     } catch (error) {
       console.log(error);
     }
   };
+
+//   useEffect(() => {
+//     socket.on("receivedMessage", (data) => {
+//         console.log(data)
+//       if (chat && data.sentMessage.chatId.id === chat.id) {
+//         setChat((prevChat: Chat | undefined) => {
+//           const updatedChat = { ...prevChat! };
+//           updatedChat.messages = [...updatedChat.messages, data.sentMessage]
+//           console.log(updatedChat)
+//           return updatedChat;
+//         });
+//       }
+//     });
+//   }, [socket, chat]);
+
+useEffect(() => {
+    const handleReceivedMessage = (data: { sentMessage: Message; }) => {
+      console.log(data);
+      if (chat && data.sentMessage.chatId.id === chat.id) {
+        setChat((prevChat) => {
+          const updatedChat = { ...prevChat! };
+          updatedChat.messages = [...updatedChat.messages, data.sentMessage];
+          console.log(updatedChat);
+          return updatedChat;
+        });
+      }
+    };
+  
+    socket.on("receivedMessage", handleReceivedMessage);
+  
+    return () => {
+      socket.off("receivedMessage", handleReceivedMessage);
+    };
+  }, [socket, chat]);
+
 
   return (
     <div className="bg-gray-200 text-slate-950 rounded-t mr-2">
@@ -101,14 +150,14 @@ function Chats() {
         <div>
           <button onClick={toggleChat}>←</button>
           <div>
-            {chat.messages.map((message) => {
-              console.log(chat);
+            
+            {chat.messages && chat.messages.map((message) => {
               return (
                 <div>
                   <p
                     key={message.id}
                     className={
-                      message.senderId.id === user.user.id
+                      message.senderId?.id === user.user.id
                         ? "text-right"
                         : "text-left"
                     }
