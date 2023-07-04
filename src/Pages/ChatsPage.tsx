@@ -93,14 +93,14 @@ function ChatsPage() {
   }, [socket, chat]);
 
   return (
-    <div className="max-h-screen overflow-y-hidden">
+    <div className="h-screen overflow-y-hidden overflow-x-hidden">
       <h1
         onClick={toggleChat}
         className="bg-gray-200 text-slate-950 flex justify-center rounded-md my-2 w-8/12"
       >
         Chats
       </h1>
-      <div className=" text-white flex justify-center ">
+      <div className=" text-white flex justify-center h-screen ">
         <div className="w-1/2">
           <ul>
             {chats.map((chat) => (
@@ -130,12 +130,12 @@ function ChatsPage() {
         </div>
         {showChat && chat && (
           <>
-          <div className="w-1/2 flex flex-col">
+          <div className="w-1/2 flex flex-col h-min-screen">
             <div className="flex items-center">
               <button onClick={toggleChat}>←</button>
               <p className="mx-5">{chat.users[0].userName}</p>
             </div>
-            <div className="overflow-y-scroll h-screen">
+            <div className=" overflow-y-auto h-screen">
               {chat.messages &&
                 chat.messages.map((message) => {
                   return (
@@ -154,7 +154,7 @@ function ChatsPage() {
                   );
                 })}
             </div>
-              <div className="bottom-0 fixed flex pl-3 bg-slate-950 w-screen ml-2">
+              <div className=" flex pl-3 bg-slate-950 w-screen ml-2 mb-10">
                 <form
                   className="flex justify-center py-1   "
                   onSubmit={(e) => handleSubmit(e, chat.users[0].id, chat.id)}
