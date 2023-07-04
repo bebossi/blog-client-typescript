@@ -29,6 +29,10 @@ function UserProfile() {
     fetchUser();
   }, []);
 
+  async function createChat(){
+    await api.post(`/chat/${params.userId}`)
+  }
+
   async function followingUser() {
     await api.post(`/followUser/${params.userId}`);
     setIsFollowing(true);
@@ -72,12 +76,16 @@ function UserProfile() {
         </div>
         <h2 className="text-xl mb-4"> {user?.email}</h2>
       </div>
+      <div className="flex gap-4">
+
       <button
         onClick={isFollowing ? unfollowUser : followingUser}
         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 ml-5 rounded"
       >
         {followButtonLabel}
       </button>
+      <button onClick={() => createChat()}>✉</button>
+      </div>
       <div className="flex gap-4 mb-4 ml-10">
           <button
             className={`${
