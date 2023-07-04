@@ -100,7 +100,7 @@ function ChatsPage() {
       >
         Chats
       </h1>
-      <div className=" text-white flex justify-center h-screen ">
+      <div className=" text-white flex justify-start h-screen ">
         <div className="w-1/2">
           <ul>
             {chats.map((chat) => (
