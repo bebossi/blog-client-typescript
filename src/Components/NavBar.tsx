@@ -29,6 +29,11 @@ function Navbar() {
                 </Link>
               </li>
               <li>
+                <Link to="/chats" className="text-white hover:text-gray-300">
+                 Chats
+                </Link>
+              </li>
+              <li>
                 <Link className= "flex gap-2 text-white hover:text-gray-300" to="/createPost">
                   <img className="h-6 w-6 bg-white rounded-full" src="/src/assets/plus.png"/>
                   <p>Create Post</p>

@@ -120,6 +120,7 @@ function ChatsPage() {
                         >
                           {user.userName}
                         </p>
+                        <button>...</button>
                       </div>
                     </div>
                   );
