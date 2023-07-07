@@ -8,6 +8,7 @@ function ChatsPage() {
   const [chats, setChats] = useState<Chat[]>([]);
   const [chat, setChat] = useState<Chat | undefined>();
   const [showChat, setShowChat] = useState(false);
+  const [selectedChatId, setSelectedChatId] = useState<number | null>(null);
   const [sendingMessage, setSendingMessage] = useState("");
   const user = useContext(AuthContext);
 
@@ -36,6 +37,14 @@ function ChatsPage() {
   const toggleChat = async () => {
     setShowChat(false);
     setChat(undefined);
+  };
+
+  const toggleExpandButton = (chatId: number) => {
+    setSelectedChatId((prevId) => (prevId === chatId ? null : chatId));
+  };
+
+  const toggleDeleteButton = async (chatId: number) => {
+    await api.delete(`/deleteChat/${chatId}`)
   };
 
   const handleUsernameClick = (userId: number) => {
@@ -120,7 +129,19 @@ function ChatsPage() {
                         >
                           {user.userName}
                         </p>
-                        <button>...</button>
+                        <button onClick={() => toggleExpandButton(chat.id)}>
+                          ...
+                        </button>
+                        {selectedChatId === chat.id && (
+                          <>
+                            <button
+                              onClick={() => toggleDeleteButton(chat.id)}
+                              className="bg-red-950 hover:bg-red-900 text-white font-bold py-0.25 px-2 rounded-xl h-6"
+                            >
+                              Delete
+                            </button>
+                          </>
+                        )}
                       </div>
                     </div>
                   );
@@ -131,30 +152,30 @@ function ChatsPage() {
         </div>
         {showChat && chat && (
           <>
-          <div className="w-1/2 flex flex-col h-min-screen">
-            <div className="flex items-center">
-              <button onClick={toggleChat}>←</button>
-              <p className="mx-5">{chat.users[0].userName}</p>
-            </div>
-            <div className=" overflow-y-auto h-screen">
-              {chat.messages &&
-                chat.messages.map((message) => {
-                  return (
-                    <div className="">
-                      <p
-                        key={message.id}
-                        className={
-                          message.senderId?.id === user.user.id
-                            ? "text-right bg-sky-400 rounded-md px-3 max-w-fit ms-auto mb-1 mr-1"
-                            : "text-left bg-slate-300 max-w-fit px-3 mb-1 rounded-md ml-1"
-                        }
-                      >
-                        {message.message}
-                      </p>
-                    </div>
-                  );
-                })}
-            </div>
+            <div className="w-1/2 flex flex-col h-min-screen">
+              <div className="flex items-center">
+                <button onClick={toggleChat}>←</button>
+                <p className="mx-5">{chat.users[0].userName}</p>
+              </div>
+              <div className=" overflow-y-auto h-screen">
+                {chat.messages &&
+                  chat.messages.map((message) => {
+                    return (
+                      <div className="">
+                        <p
+                          key={message.id}
+                          className={
+                            message.senderId?.id === user.user.id
+                              ? "text-right bg-sky-400 rounded-md px-3 max-w-fit ms-auto mb-1 mr-1"
+                              : "text-left bg-slate-300 max-w-fit px-3 mb-1 rounded-md ml-1"
+                          }
+                        >
+                          {message.message}
+                        </p>
+                      </div>
+                    );
+                  })}
+              </div>
               <div className=" flex pl-3 bg-slate-950 w-screen ml-2 mb-10">
                 <form
                   className="flex justify-center py-1   "
@@ -171,7 +192,7 @@ function ChatsPage() {
                   </button>
                 </form>
               </div>
-          </div>
+            </div>
           </>
         )}
       </div>
